@@ -9,12 +9,12 @@ filename = 'EBSD_03_run1';
 seg_map_fn = 'avg_interpol_seg1.tiff'; % This scaling determines image size
 ebsd_text_fn = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 
-%scaling
+% scaling
 scale = 1/8; % length scale - smaller scales = faster processing
 um_per_pix = 1/(144-18); % for IPF map of 1031 x 1024
 
 % Segmentation to extract these values 
-boundary_lbls = [9]; % 9,13,23,45 e_03 green region in segmentation map
+boundary_lbls = [9]; % use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
 bckgrd_lbls = [1]; %  red region
 remove_lbls = []; % 
 A_thresh_um = 0.016; % [=] um^2, threshold for what is considered a grain
