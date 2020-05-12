@@ -3,8 +3,8 @@ clear; close all; clc;
 %% Saving
 % time stamp appended to end of filename
 filename = 'EBSD_03_run1';
-save_mat = true; % true: creates Matlab data file of everything
-save_excel = true; % true: creates excel form of grain_props
+save_mat = false; % true: creates Matlab data file of everything
+save_excel = false; % true: creates excel form of grain_props
 
 %% Inputs
 % segmentation and EBSD data
@@ -25,7 +25,7 @@ mult_secondary_ptcs = false; % if secondary particles in segmentation map
 
 % Cleaning
 angle_threshold = 1.8; % [=] degrees
-fill_grain = false; % true: N_thresh_um ignored & most common orientation fills grain
+fill_grain = true; % true: N_thresh_um ignored & most common orientation fills grain
 N_thresh_um = 0.01; % [=] um^2, minimum size of speckle to remove
 
 %% Processing
