@@ -1,9 +1,10 @@
 clear; close all; clc;
 
-%% Save name
+%% Saving
 % time stamp appended to end of filename
 filename = 'EBSD_03_run1';
-save_data = true; % true to save excel and Matlab data file
+save_mat = true; % true: creates Matlab data file of everything
+save_excel = true; % true: creates excel form of grain_props
 
 %% Inputs
 % segmentation and EBSD data
@@ -17,7 +18,7 @@ um_per_pix = 1/(144-18); % pixel scaling, here for IPF map of 1031 x 1024
 % Segmentation to extract these values 
 boundary_lbls = [9]; % green region, use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
 bckgrd_lbls = [1]; %  red region
-remove_lbls = []; % 
+remove_lbls = [2,3,4,5,6,7,206,194]; % remove grains outside secondary particle
 A_thresh_um = 0.016; % [=] um^2, threshold for what is considered a grain
 CI_thres = -0.01; % 1-CI_thresh is confidence interval, if < 0 all data used
 mult_secondary_ptcs = false; % if secondary particles in segmentation map
@@ -107,16 +108,17 @@ grain_props = function_intragrain_properties(grain_props);
 figure; imshow(function_mat2col(grain_props.xyz_cleaned));
 
 %% Save Data
-if save_data
+if save_mat
     % Matlab data file
     dt = datetime; dt.Format = 'uuuu-MM-dd-HH-mm-ss';
     ctime = char(dt);
     save_name = [ctime, '_', filename, '.mat'];
     save(save_name)
-
+end
+if save_excel
     % Create and Save Tables
     [T_pt, ptc_info, T_g, T_ig] = create_grain_info_tables(grain_props);
-    save_name_excel = [save_name, '.xlsx'];
+    save_name_excel = [save_name(1:(end-4)), '.xlsx'];
     writetable(T_pt, save_name_excel, 'Sheet', 'pixels');
     writecell(ptc_info, save_name_excel, 'Sheet', 'particle');
     writetable(T_g, save_name_excel, 'Sheet', 'grain');
