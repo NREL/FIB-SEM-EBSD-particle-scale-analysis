@@ -23,13 +23,13 @@ ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 %implement in original code
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, 
 second_ptc_r = 9.3/2; % microns, for radial adjustments
-grain_props.pix2um = 1/(137-17); % micron per pixel
+% grain_props.pix2um = 1/(137-17); % micron per pixel
 
 close all; %clearvars -except grain_props ptc_r105090 second_ptc_r
 
 
 %% Edge Map
-fig_edgemap = figure; im = image(grain_props.ptc_edge_map.*grain_props.pix2um);
+fig_edgemap = figure; im = image(grain_props.ptc_edge_map.*grain_props.um_per_pix);
 fig_edgemap.Units = 'inches'; fig_edgemap.Position(3) = 3.0417; fig_edgemap.Position(4) = 2.25;
 im.CDataMapping = 'scaled'; colorbar; colormap(jet)
 
@@ -92,7 +92,7 @@ end
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
 for n = 1:length(ptc_r105090)
     ptc_cntrd = [grain_props.ptc_centroid, 0];
-    rslice = sqrt(grain_props.ptc_area*(grain_props.pix2um^2)/pi); % um ^2
+    rslice = sqrt(grain_props.ptc_area*(grain_props.um_per_pix^2)/pi); % um ^2
     if rslice < ptc_r105090(n)
         roffset = sqrt(ptc_r105090(n)^2 - rslice^2); % um
     else
@@ -185,9 +185,9 @@ for n = 1:length(grain_props.grain_labels) % per each grain
     count = 0;
     for m = 1:length(rem)
         count = count + 1;
-        curr_grn_size(count) = grn_size_n*(grain_props.pix2um^2);
+        curr_grn_size(count) = grn_size_n*(grain_props.um_per_pix^2);
         [r,c] = find(grain_props.BW_intragrain == rem(m)); % grain size
-        curr_grn_frac(count) = length(r)*(grain_props.pix2um^2)/curr_grn_size(count);
+        curr_grn_frac(count) = length(r)*(grain_props.um_per_pix^2)/curr_grn_size(count);
         if curr_grn_frac(count) > 1; error('bigger than grain?'); end
     end
     srs = sortrows([curr_grn_size(:), curr_grn_frac(:)], 2, 'descend');
@@ -200,7 +200,7 @@ for n = 1:length(grain_props.grain_labels) % per each grain
     
     
     grn_frac_tot(n) = sum(curr_grn_frac); % total amount of grain that is not most frequent size
-    grn_size_tot(n) = grn_size_n*(grain_props.pix2um^2);
+    grn_size_tot(n) = grn_size_n*(grain_props.um_per_pix^2);
 end
 % individual intra-grains
 fig_intg_frac = figure; scatter(grn_size, grn_frac, 3, 'filled');

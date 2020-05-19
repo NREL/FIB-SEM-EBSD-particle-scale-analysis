@@ -26,7 +26,7 @@ function [fig_size_dist_plots, dmap_rad_bounds_fig, results_d2] = function_binne
     end
 
     edge_dmap = grain_props.ptc_edge_map;
-    pixel_to_um_fctr = grain_props.pix2um;
+    pixel_to_um_fctr = grain_props.um_per_pix;
     
     % radial distribution plot
     fig_size_dist_plots = figure; fig_size_dist_plots.Color = 'white'; 

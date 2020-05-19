@@ -28,7 +28,7 @@ function angles_to_r = function_hist_rs(grain_props, roffset)
         th_temp = grn_frqs(1,3); phi_temp = grn_frqs(1,4); % only considered most common direction -> no grain pairs!!
         [grn_zvec(1), grn_zvec(2), grn_zvec(3)] = sph2cart(th_temp, phi_temp, 1);
         
-        rgrain = ([grain_props.ptc_centroid, 0]- grn_cntrd).*grain_props.pix2um; % um
+        rgrain = ([grain_props.ptc_centroid, 0]- grn_cntrd).*grain_props.um_per_pix; % um
         ractual = rgrain + [0 0 roffset];
         ractual = ractual./(sqrt(sum(ractual.^2)));
 

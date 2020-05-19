@@ -6,8 +6,8 @@ map = zeros(sz_bw);
 
 [xs, ys] = meshgrid(1:sz_bw(2), 1:sz_bw(1));
 
-xs = (xs - grain_props.ptc_centroid(1)) * grain_props.pix2um;
-ys = (ys - grain_props.ptc_centroid(1)) * grain_props.pix2um;
+xs = (xs - grain_props.ptc_centroid(1)) * grain_props.um_per_pix;
+ys = (ys - grain_props.ptc_centroid(1)) * grain_props.um_per_pix;
 
 for n = 1:(sz_bw(1))
     for m  = 1:sz_bw(2)
