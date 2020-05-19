@@ -1,8 +1,11 @@
 %% analysis using grain_props
 close all; clear; clc;
+addpath('Visualization')
 
+%%
 % load grain_props
-load('2020-01-12-14-20-15_EBSD_03_run1');
+% load('2020-01-12-14-20-15_EBSD_03_run1');
+load('2020-05-19-18-42-45_EBSD_03_run1');
 
 % for slices, and first 2 of figure 7
 %   'e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'
@@ -19,7 +22,6 @@ ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
 %implement in original code
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, 
-% ptc_r105090 = [8.5, 9.3, 10]./2; % in microns, 
 second_ptc_r = 9.3/2; % microns, for radial adjustments
 grain_props.pix2um = 1/(137-17); % micron per pixel
 
@@ -54,11 +56,12 @@ for n = 1:length(grain_props.intragrain_boundaries)
     end
 end
 
-%% Visualizations: Intra-grain angles per boundary pixel 
-figure_intragrain_border_angles_histo = figure; histogram(grain_props.intragrain_border_angles(:,5), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
-figure_intragrain_border_angles_histo.Color = 'white'; figure_intragrain_border_angles_histo.Units = 'inches'; figure_intragrain_border_angles_histo.Position(3) = 2.75; figure_intragrain_border_angles_histo.Position(4) = 2.25;
-figure_intragrain_border_angles = function_show_border_angles(grain_props, grain_props.intragrain_border_angles);
-
+%% Visualizations: Intra-grain angles per boundary pixel
+if ~isempty(grain_props.intragrain_border_angles)
+    figure_ig_bdr_angl_histo = figure; histogram(grain_props.intragrain_border_angles(:,5), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
+    figure_ig_bdr_angl_histo.Color = 'white'; figure_ig_bdr_angl_histo.Units = 'inches'; figure_ig_bdr_angl_histo.Position(3) = 2.75; figure_ig_bdr_angl_histo.Position(4) = 2.25;
+    figure_intragrain_border_angles = function_show_border_angles(grain_props, grain_props.intragrain_border_angles);
+end
 %% Visualizations: Grain-grain angles per boundary pixel 
 if ~isempty(grain_props.grain_border_angles)
     figure_grain_grain_border_angles_histo = figure; histogram(real(grain_props.grain_border_angles(:,5)), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')

@@ -3,7 +3,7 @@ clear; close all; clc;
 %% Saving
 % time stamp appended to end of filename
 filename = 'EBSD_03_run1';
-save_mat = false; % true: creates Matlab data file of everything
+save_mat = true; % true: creates Matlab data file of everything
 save_excel = false; % true: creates excel form of grain_props
 
 %% Inputs
