@@ -24,35 +24,7 @@ ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, 
 second_ptc_r = 9.3/2; % microns, for radial adjustments
 
-%% Grain Border Map
-fig_gbmp = figure; fig_gbmp.Units = 'inches';
-imshow(grain_props.ptc_map); hold on;
-for n = 1:length(grain_props.grain_boundaries)
-    plot(grain_props.grain_boundaries{n}{1}(:,2), grain_props.grain_boundaries{n}{1}(:,1), 'Color', [0.5, 0.5, 0.5])
-end
-fig_gbmp.Position(3) = 2.75; fig_gbmp.Position(4) = 2.25;
 
-%% Visualizaiton: Color maps for cleaning impact of cleaning
-img_filtered_noise = function_view_speckle_removed(grain_props); % image cleaning - compares xyz_pos and xyz_cleaned
-intragrain_misorientation = function_view_intragrain_misorientation(grain_props); % after cleaning - shows within each grain the levels of misorientation
-
-figure; imshow(img_filtered_noise)
-figure; imshow(intragrain_misorientation)
-
-%% Visualizations: Show Intragrain Boundaries
-figure; imshow(label2rgb(grain_props.BW)); hold on; 
-for n = 1:length(grain_props.intragrain_boundaries)
-    if iscell(grain_props.intragrain_boundaries{n})
-        plot(grain_props.intragrain_boundaries{n}{1}(:,2), grain_props.intragrain_boundaries{n}{1}(:,1), 'k')
-    end
-end
-
-%% Visualizations: Intra-grain angles per boundary pixel
-if ~isempty(grain_props.intragrain_border_angles)
-    figure_ig_bdr_angl_histo = figure; histogram(grain_props.intragrain_border_angles(:,5), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
-    figure_ig_bdr_angl_histo.Color = 'white'; figure_ig_bdr_angl_histo.Units = 'inches'; figure_ig_bdr_angl_histo.Position(3) = 2.75; figure_ig_bdr_angl_histo.Position(4) = 2.25;
-    figure_intragrain_border_angles = function_show_border_angles(grain_props, grain_props.intragrain_border_angles);
-end
 %% Visualizations: Grain-grain angles per boundary pixel 
 if ~isempty(grain_props.grain_border_angles)
     figure_grain_grain_border_angles_histo = figure; histogram(real(grain_props.grain_border_angles(:,5)), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
