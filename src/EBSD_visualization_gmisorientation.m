@@ -8,27 +8,28 @@ close all; clear; clc;
 addpath('Visualization')
 
 %% Loading
-% load('2020-01-12-14-20-15_EBSD_03_run1'); close all;
-% load('2020-05-19-18-42-45_EBSD_03_run1'); close all;
+% % grains only
+% load('2020-05-20-16-08-33_e03_cln3_ci0_grains_only_ebsd_seg.mat'); close all;
+
+% % FULL grain. cleaning applied
+% load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); close all;
+
+% for boundary region
+% NOTE, THIS HISTOGRAM SHOULD BE OBTAINED FROM FULL GRAIN OVERLAID WITH
+% SEGMENTATION PATTERN. MADE THE FOLLOWING ANYWAYS
+load('2020-05-20-18-00-54_e03_boundaries_ebsd_seg.mat');
+
+
 
 % for slices, and first 2 of figure 7
 %   'e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'
-
-% for grains only
-load('e03_cln3_ci05_grains_only_ebsd_seg_18-Jul-2019 104019.mat'); close all;
-
-% for boundary region
-%   'e03_webbings_ebsd_seg_17-Jul-2019 101226.mat'
-
-% FULL grain. cleaning applied
-%   'e03_cln3_entire_ptc_ebsd_seg_17-Jul-2019 113107.mat'
 
 % most frequency orientation adopted
 %   '2020-01-12-15-03-16_EBSD_03_mfv.mat'
 
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
-%% Visualizaiton: Color maps for cleaning impact of cleaning
+%% Visualizations: Color maps for cleaning impact of cleaning
 img_filtered_noise = function_view_speckle_removed(grain_props); % image cleaning - compares xyz_pos and xyz_cleaned
 intragrain_misorientation = function_view_intragrain_misorientation(grain_props); % after cleaning - shows within each grain the levels of misorientation
 

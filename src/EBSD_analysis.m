@@ -5,7 +5,7 @@ addpath('Processing')
 %% Saving
 % time stamp appended to end of filename
 % filename = 'EBSD_03_run1';
-filename = 'e03_cln3_ci05_grains_only_ebsd_seg'
+filename = 'e03_boundaries_ebsd_seg';
 save_mat = true; % true: creates Matlab data file of everything
 save_excel = false; % true: creates excel form of grain_props
 
@@ -18,17 +18,21 @@ ebsd_text_fn = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 scale = 1; % length scale - smaller scales = faster processing
 um_per_pix = 1/(144-18); % pixel scaling, here for IPF map of 1031 x 1024
 
+% swapping and focus region
+focus = 'boundaries'; % 'boundaries', 'grains', or all
+need_swap_labels = false; % certain patterns might need swapping
+
 % Segmentation to extract these values 
 boundary_lbls = [45]; % green region, use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
 bckgrd_lbls = [1]; %  red region
-remove_lbls = [2,3,4,5,6,7,206,194]; % remove grains outside secondary particle
+remove_lbls = []; % remove grains outside secondary particle
 A_thresh_um = 0.016; % [=] um^2, threshold for what is considered a grain
 CI_thres = -0.01; % 1-CI_thresh is confidence interval, if < 0 all data used
 mult_secondary_ptcs = false; % if secondary particles in segmentation map
 
 % Cleaning
 angle_threshold = 1.8; % [=] degrees
-fill_grain = true; % true: N_thresh_um ignored & most common orientation fills grain
+fill_grain = false; % true: N_thresh_um ignored & most common orientation fills grain
 N_thresh_um = 0.01; % [=] um^2, minimum size of speckle to remove
 
 %% Processing
@@ -45,32 +49,49 @@ seg_map = imresize(seg_map, scale, 'nearest');
 ebsd_text = function_import_ebsd_text(ebsd_text_fn); % EBSD txt file
 function_bwshowlabels(seg_map, 'first')
 
+if need_swap_labels
+    seg_map = function_swap_labels(seg_map,1,2);
+end
+
 %% Process Segmentation
-disk_size = floor(4*scale^2); % cleans boundaries, ...might be unnecessary
-struct_el = strel('disk', disk_size);
-fig_web = function_show_web(seg_map, 'ShowLabels', false);
-fig_web_labels = function_show_web(seg_map, 2);  % determine which webs to remove
+if strcmp(focus, 'boundaries') % note connectivity lost here
+    webs_only_unmodified = seg_map; 
+    webs_only_unmodified(webs_only_unmodified ~= 1) = 0;
+    grain_props.BW = webs_only_unmodified;
+    
+elseif strcmp(focus, 'grains') % note connectivity lost here
+    grains_only_unmodified = seg_map;
+    grains_only_unmodified(grains_only_unmodified ~= 2) = 0;
+    grains_only_unmodified(grains_only_unmodified == 2) = 1;
+    grain_props.BW = bwlabel(grains_only_unmodified);
+    figure; imshow(label2rgb(grain_props.BW))
+else
+    disk_size = floor(4*scale^2);
+    struct_el = strel('disk', disk_size);
+    fig_web = function_show_web(seg_map, 'ShowLabels', false);
 
-fig_grains = function_show_grains(seg_map, 'ShowLabels', false);
-thresholded_grain_lbls = function_show_grains(seg_map, A_thresh_pix); % determine which grains to remove
+    fig_grains = function_show_grains(seg_map, 'ShowLabels', false);
+    thresholded_grain_lbls = function_show_grains(seg_map, A_thresh_pix); % determine which grains to remove
 
-[BW_iq_web, BW_cleaned_web] = function_clean_web(seg_map, boundary_lbls, struct_el);
+    [BW_iq_web, BW_cleaned_web] = function_clean_web(seg_map, boundary_lbls, struct_el);
 
-BW_iq = function_clean_grains(seg_map, thresholded_grain_lbls);% threshold grains, repalce with NaNs
-BW_iq_comb = function_combine_grains_webs(BW_iq, BW_iq_web); % combined grain/webs, replace NaNs with webbing
+    BW_iq = function_clean_grains(seg_map, thresholded_grain_lbls);% threshold grains, repalce with NaNs
+    BW_iq_comb = function_combine_grains_webs(BW_iq, BW_iq_web); % combined grain/webs, replace NaNs with webbing
 
-fig_og_backgrounds = function_show_backgrounds(BW_iq_comb, 1);
+    fig_og_backgrounds = function_show_backgrounds(BW_iq_comb, 1);
 
-BW_iq_comb_clean = function_bckgrnd_to_web(BW_iq_comb, bckgrd_lbls); % clean created background 'particles', replace 0 with webbing
-[new_BW_iq, BW_seq] = function_remove_web(BW_iq_comb_clean); % dilation into webbing
-figure; montage(BW_seq) %% shows segmentation steps
+    BW_iq_comb_clean = function_bckgrnd_to_web(BW_iq_comb, bckgrd_lbls); % clean created background 'particles', replace 0 with webbing
+    [new_BW_iq, BW_seq] = function_remove_web(BW_iq_comb_clean); % dilation into webbing
+    figure; montage(BW_seq) %% shows segmentation steps
 
-new_BW_iq(new_BW_iq == 1) = 0; % cleaning for leftover segmentation boundaries
-function_bwshowlabels(new_BW_iq, 'centroid'); % show labels of all particles
+    new_BW_iq(new_BW_iq == 1) = 0; % cleaning for leftover segmentation boundaries
+    function_bwshowlabels(new_BW_iq, 'centroid'); % show labels of all particles
 
-BW_final = function_bwremovelabels(new_BW_iq, remove_lbls); % remove labels and normalize remaining
-function_bwshowlabels(BW_final, 'centroid'); % show labels of all particles
-grain_props.BW = BW_final; % sequentially numbered BWs
+    BW_final = function_bwremovelabels(new_BW_iq, remove_lbls); % remove labels and normalize remaining
+    function_bwshowlabels(BW_final, 'centroid'); % show labels of all particles
+    grain_props.BW = BW_final; % sequentially numbered BWs
+    figure; imshow(label2rgb(BW_final))
+end
 
 %% CI, EBSD Euler Extracted
 % confidence interval map
