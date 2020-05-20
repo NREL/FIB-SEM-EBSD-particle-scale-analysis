@@ -51,16 +51,16 @@ fig_web = function_show_web(seg_map, 'ShowLabels', false);
 fig_web_labels = function_show_web(seg_map, 2);  % determine which webs to remove
 
 fig_grains = function_show_grains(seg_map, 'ShowLabels', false);
-[fig_grains_thresholded, thresholded_grain_lbls] = function_show_grains(seg_map, A_thresh_pix); % determine which grains to remove
+thresholded_grain_lbls = function_show_grains(seg_map, A_thresh_pix); % determine which grains to remove
 
 [BW_iq_web, BW_cleaned_web] = function_clean_web(seg_map, boundary_lbls, struct_el);
 
 BW_iq = function_clean_grains(seg_map, thresholded_grain_lbls);% threshold grains, repalce with NaNs
 BW_iq_comb = function_combine_grains_webs(BW_iq, BW_iq_web); % combined grain/webs, replace NaNs with webbing
 
-[fig_new_background, fig_og_backgrounds] = function_show_backgrounds(BW_iq_comb, 1);
+fig_og_backgrounds = function_show_backgrounds(BW_iq_comb, 1);
 
-[BW_iq_comb_clean, fig_BW_rdy_seg] = function_bckgrnd_to_web(BW_iq_comb, bckgrd_lbls); % clean created background 'particles', replace 0 with webbing
+BW_iq_comb_clean = function_bckgrnd_to_web(BW_iq_comb, bckgrd_lbls); % clean created background 'particles', replace 0 with webbing
 [new_BW_iq, BW_seq] = function_remove_web(BW_iq_comb_clean); % dilation into webbing
 figure; montage(BW_seq) %% shows segmentation steps
 
