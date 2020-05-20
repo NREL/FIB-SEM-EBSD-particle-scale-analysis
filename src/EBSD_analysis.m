@@ -1,4 +1,6 @@
 clear; close all; clc;
+addpath('Segmentation')
+addpath('Processing')
 
 %% Saving
 % time stamp appended to end of filename

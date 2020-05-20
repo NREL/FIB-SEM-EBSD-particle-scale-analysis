@@ -1,4 +1,4 @@
-function [BW_rdy_seg, fig_BW_rdy_seg] = function_bckgrnd_to_web(BW_combined, bck_lbls)
+function BW_rdy_seg = function_bckgrnd_to_web(BW_combined, bck_lbls)
 %function_bckgrnd_to_web returns segmented matrix ready for dilation of grains 
 %   BW_rdy_seg = function_bckgrnd_to_web(BW_combined, num, bck_lbls) uses
 %       bck_lbls to replace anything but actual background with value = 1,
@@ -33,6 +33,5 @@ BCK_LBL = 0; % background of matrix
     
     BW_iq_og(ismember(BW_iq_white_dot_rid_labeled, lbls_to_make1)) = 1;
     
-    BW_rdy_seg = BW_iq_og;    
-    fig_BW_rdy_seg = figure; imshow(label2rgb(BW_rdy_seg));
+    BW_rdy_seg = BW_iq_og;
 end

@@ -1,20 +1,21 @@
-function [fig, lbls2include] = function_show_grains(seg_map, varargin)
+function lbls2include = function_show_grains(seg_map, varargin)
 %function_get_grains shows grains and their labels
-%   [grains, fig_grains, lbls] = function_get_grains(seg_map)
-%       displays all grains with labels
-%   [grains, fig_grains, lbls] = function_get_grains(seg_map, area_thrshld)
-%       uses area threshold above to remove grains below size threshold. 
+%   lbls = function_get_grains(seg_map) displays grains with or without 
+%       labels 
 %   
 %   Inputs
 %       seg_map - original segmentation map
 %       area_thrshld - area threshold in pixels^2. Segmentation groups <
 %           area are not inlcuded in lbls2include nor do they show up on
 %           the figure
+%
+%   Parameters
+%       ShowLabels - true or false
 % 
 %   Outputs
-%       fig - handle to figure which shows labels for all regions
 %       lbls2include - based on area_threshold, incldues the labels for all
 %           regions with areas > area_thrshld
+%       PLOT - Please create figure prior to use.
 %
 %   Author: Alexander H Quinn, National Renewable Energy Laboratory (NREL)
 %   Guided/Inspired by: Donal P. Finagan, NREL
@@ -56,9 +57,10 @@ GRAIN_NUM = 2;
     BW_iq(ismember(BW_iq, lbls_with_small_areas)) = 0;
     
     if show_labels
-        fig = function_bwshowlabels(BW_iq, 'centroid');
+        function_bwshowlabels(BW_iq, 'centroid');
     else
-        figure; fig = imshow(label2rgb(BW_iq));
+        imshow(label2rgb(BW_iq));
     end
+    
     lbls2include = lbls_sort_by_area(:,1); % labels to use if wanting to sort by area
 end

@@ -1,6 +1,6 @@
 function grains = function_clean_grains(seg_map, keep_grains)
 %function_clean_grains repalces grains not in keep_grains w/ NaN
-%   [grains, fig_grains] = function_clean_grains(seg_map, keep_grains)
+%   grains = function_clean_grains(seg_map, keep_grains)
 %       removes grains from matrix segemeneted from seg_map labeled in
 %       keep_grains
 %   Inputs
@@ -33,6 +33,6 @@ GRAIN_NUM = 2;
     BW_iq(ismember(BW_iq, lbls_to_go)) = NaN;
      
     BW_iq(isnan(BW_iq)) = 0;
-    figure; imshow(label2rgb(BW_iq))
+    
     grains = BW_iq;
 end

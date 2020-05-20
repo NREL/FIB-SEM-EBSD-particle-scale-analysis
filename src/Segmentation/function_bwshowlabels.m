@@ -1,4 +1,4 @@
-function fig = function_bwshowlabels(BW, location)
+function function_bwshowlabels(BW, location)
 % function_bwshowlabels labels numbered matrices
 %   fig = function_bwshowlabels(BW, location) displays a text for each
 %   unique integer in a 2D matrix. This does not include
@@ -18,7 +18,8 @@ function fig = function_bwshowlabels(BW, location)
 %   Additional assistance from:  Francois Usseglio-Viretta, NREL
     
     if ~all(floor(BW) == BW, 'all')
-        error('Please ensure all values in BW matrix are integers. If applicable, can be performed with round, floor, or ceil.')
+        error(['Please ensure all values in BW matrix are integers.' ,... 
+            'If applicable, can be performed with round, floor, or ceil.'])
     end
     
     lbls = unique(BW); % all numbers in map
@@ -32,7 +33,7 @@ function fig = function_bwshowlabels(BW, location)
     centroids = cat(1,rp.Centroid);
     centroids = centroids(bool_keep(:), :); % remove centroids for vlaues that don't exist
     
-    fig = figure; imshow(label2rgb(BW)); hold on;
+    imshow(label2rgb(BW)); hold on;
     for n = 1:size(centroids,1)
         if strcmpi(location, 'centroid') 
             text(centroids(n,1), centroids(n,2), num2str(rem_lbls(n)), 'HorizontalAlignment', 'center', 'Color', 'white', 'BackgroundColor', 'black', 'FontSize', 10);

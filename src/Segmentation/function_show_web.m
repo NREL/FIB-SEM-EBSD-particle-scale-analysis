@@ -1,4 +1,4 @@
-function [fig, lbls2include] = function_show_web(seg_map, varargin)
+function lbls2include = function_show_web(seg_map, varargin)
 % function_show_web separates webbing from segementation map
 %   [web, f1] = function_show_web(seg_map)
 %   [web, f1] = function_show_web(seg_map, nums) returns only the
@@ -10,7 +10,10 @@ function [fig, lbls2include] = function_show_web(seg_map, varargin)
 %       nums (optional) - the number of webs to display based on largest to
 %           smallest 
 %       
-% 
+%    Optional parameters
+%       'ShowLabels' | true/false - default true, if set to false will not
+%           show labels ontop of webbing
+%
 %   Outputs
 %       web - structures overlayed onto '0' background
 %       f1 - labeled map of webbing to make choice on
@@ -19,10 +22,6 @@ function [fig, lbls2include] = function_show_web(seg_map, varargin)
 %           The number of webbings chosen is given by the nums parameter.
 %           This can be fed directly into function_clean_webs if no updates
 %           are to be made.
-%
-%    Optional parameters
-%       'ShowLabels' | true/false - default true, if set to false will not
-%           show labels ontop of webbing
 %
 %   Author: Alexander H Quinn, National Renewable Energy Laboratory (NREL)
 %   Guidance/Inspiration: Donal P. Finagan, NREL
@@ -61,8 +60,8 @@ WEBBING_NUM = 1; % corresponds to webbing
     
     BW_iq_web(~ismember(BW_iq_web, lbls2include)) = 0;   
     if show_labels
-        fig = function_bwshowlabels(BW_iq_web, 'first');
+        function_bwshowlabels(BW_iq_web, 'first');
     else
-        fig = figure; imshow(label2rgb(BW_iq_web));
+        imshow(label2rgb(BW_iq_web));
     end
 end
