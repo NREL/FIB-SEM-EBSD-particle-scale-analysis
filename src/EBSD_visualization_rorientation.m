@@ -12,6 +12,8 @@ load('2020-01-12-14-20-15_EBSD_03_run1'); close all;
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
 
+% look into 'e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'
+
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
 for n = 1:length(ptc_r105090)
     roffset = function_roffset(grain_props, ptc_r105090(n));

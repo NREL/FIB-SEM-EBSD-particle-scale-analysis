@@ -8,58 +8,52 @@ close all; clear; clc;
 addpath('Visualization')
 
 %% Loading
-% % grains only
-% load('2020-05-20-16-08-33_e03_cln3_ci0_grains_only_ebsd_seg.mat'); close all;
+% grains only
+load('2020-05-20-16-08-33_e03_cln3_ci0_grains_only_ebsd_seg.mat'); close all;
+gp_grains = grain_props;
 
-% % FULL grain. cleaning applied
-% load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); close all;
+% % FULL particle. cleaning applied
+load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); close all;
+gp_ptc = grain_props;
 
-% for boundary region
-% NOTE, THIS HISTOGRAM SHOULD BE OBTAINED FROM FULL GRAIN OVERLAID WITH
-% SEGMENTATION PATTERN. MADE THE FOLLOWING ANYWAYS
-load('2020-05-20-18-00-54_e03_boundaries_ebsd_seg.mat');
+% % for boundary region
+% % NOTE, THIS HISTOGRAM SHOULD BE OBTAINED FROM FULL GRAIN OVERLAID WITH
+% % SEGMENTATION PATTERN. MADE THE FOLLOWING ANYWAYS
+% load('2020-05-20-18-00-54_e03_boundaries_ebsd_seg.mat');
+% gp_boundary = grain_props;
 
-
-
-% for slices, and first 2 of figure 7
-%   'e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'
-
-% most frequency orientation adopted
-%   '2020-01-12-15-03-16_EBSD_03_mfv.mat'
+% % most frequency orientation adopted - already created and works
+% load('2020-01-12-15-03-16_EBSD_03_mfv.mat');
 
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
-%% Visualizations: Color maps for cleaning impact of cleaning
-img_filtered_noise = function_view_speckle_removed(grain_props); % image cleaning - compares xyz_pos and xyz_cleaned
-intragrain_misorientation = function_view_intragrain_misorientation(grain_props); % after cleaning - shows within each grain the levels of misorientation
+%% Color maps for impact of cleaning
+figure; imshow(function_view_speckle_removed(gp_grains)); 
+figure; imshow(function_view_speckle_removed(gp_ptc)); 
 
-figure; imshow(img_filtered_noise)
-figure; imshow(intragrain_misorientation)
+%% Red-white intragrain misorientations
+figure; imshow(function_view_intragrain_misorientation(gp_grains)); 
 
 %% Visualizations: Intra-grain angles per boundary pixel
-if ~isempty(grain_props.intragrain_border_angles)
-    figure_ig_bdr_angl_histo = figure; histogram(grain_props.intragrain_border_angles(:,5), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
-    figure_ig_bdr_angl_histo.Color = 'white'; figure_ig_bdr_angl_histo.Units = 'inches'; figure_ig_bdr_angl_histo.Position(3) = 2.75; figure_ig_bdr_angl_histo.Position(4) = 2.25;
-    figure_intragrain_border_angles = function_show_border_angles(grain_props, grain_props.intragrain_border_angles);
-end
+figure; histogram(gp_grains.intragrain_border_angles(:,5), 72)
+figure; histogram(gp_ptc.intragrain_border_angles(:,5), 72)
+
+figure; function_show_border_angles(gp_grains, gp_grains.intragrain_border_angles);
+figure; function_show_border_angles(gp_ptc, gp_ptc.intragrain_border_angles);
+
+% if ~isempty(grain_props.intragrain_border_angles)
+%     f1 = figure; histogram(grain_props.intragrain_border_angles(:,5), 72); 
+%     xlabel('g-misorientation (degrees)'); ylabel('Frequency')
+%     f1.Color = 'white'; f1.Units = 'inches'; f1.Position = [1,1,2.75,2.25];
+%     figure_intragrain_border_angles = function_show_border_angles(grain_props, grain_props.intragrain_border_angles);
+% end
 
 %% Visualizations: Grain-grain angles per boundary pixel 
 if ~isempty(grain_props.grain_border_angles)
-    figure_grain_grain_border_angles_histo = figure; histogram(real(grain_props.grain_border_angles(:,5)), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
-    figure_grain_grain_border_angles_histo.Color = 'white'; figure_grain_grain_border_angles_histo.Units = 'inches'; figure_grain_grain_border_angles_histo.Position(3) = 2.75; figure_grain_grain_border_angles_histo.Position(4) = 2.25;
+    f2 = figure; histogram(real(grain_props.grain_border_angles(:,5)), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
+    f2.Color = 'white'; f2.Units = 'inches'; f2.Position(3) = 2.75; f2.Position(4) = 2.25;
     figure_grain_grain_border_angles = function_show_border_angles(grain_props, grain_props.grain_border_angles);
 end
-
-%% Visualization: Montage
-xyzz_img = (xyzz-min(xyzz,[],'all'))./max(xyzz-min(xyzz,[],'all'),[],'all'); xyzz_img = function_apply_CI(xyzz_img, CI_map, 0); % normalize xyz values to positive 0-1 
-xyz_pos_img = function_mat2col(xyz_pos); 
-xyz_pos_img_ci = function_apply_CI(xyz_pos_img, CI_map, 0); % normalize xyz values to positive 0-1
-xyz_cleaned_img = function_mat2col(grain_props.xyz_cleaned);
-xyz_cleaned_img_ci = function_apply_CI(xyz_cleaned_img, grain_props.CI, 0);
-image_quality_img = function_mat2col(image_quality);
-
-montage_figure = figure; montage({ebsd_img, image_quality_img, label2rgb(grain_props.BW), grain_props.ptc_map, function_mat2col(xyzz), xyz_pos_img, img_filtered_noise, intragrain_misorientation,...
-    xyz_cleaned_img, xyz_cleaned_img_ci, border_composite})
 
 %% Intragrain fractions
 count = 0;
