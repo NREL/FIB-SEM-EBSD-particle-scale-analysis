@@ -10,9 +10,10 @@ function angles_to_r = function_hist_rs(grain_props, roffset)
 %   
 %   Inputs
 %       grain_props - grain properties
-%       roffset - distance of EBSD image from center of particle. Make
-%           negative if center of particle is cross sectioned off. Make
-%           sure positive if the cross section is above center of particle.
+%       sphere_radius - estimated or real radius of the NMC particle
+%           sphere.
+%       location - 2 options: 'above' or 'below'. Indicates location of
+%           EBSD slice relative to particle center.
 % 
 %   Outputs
 %       angles_to_r - angles between radial grain direction and the
@@ -20,8 +21,8 @@ function angles_to_r = function_hist_rs(grain_props, roffset)
 %
 %   Author: Alexander H Quinn, National Renewable Energy Laboratory (NREL)
 %   Guided/Inspired by: Donal P. Finagan, NREL
-%   Additional assistance:  Francois Usseglio-Viretta, NREL
-
+%   Additional assistance:  Francois Usseglio-Viretta, NREL        
+    
     for n = 1:length(grain_props.grain_labels)    
         grn_cntrd = [grain_props.grain_centroids(n,:), 0];
         grn_frqs = grain_props.orientation_frequencies{n};
