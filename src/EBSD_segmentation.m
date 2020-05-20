@@ -8,7 +8,7 @@ addpath('Segmentation')
 
 %% Inputs
 s.seg_map_filename = 'avg_interpol_seg1.tiff';
-s.scale = 1/8;
+s.scale = 1;
 s.um_per_pix = 1/(144-18); % pixel scaling
 s.struct_el = strel('disk', 4); % for boundary cleaning
 

@@ -34,8 +34,8 @@ figure; function_show_grains(seg_map_iq, 'ShowLabels', false); % all grains
 
 inp2 = 1;
 while inp2 == 1
-    inp3 = input('Input area threshold (in pixels^2): '); close all; figure;
-    thresholded_grain_lbls = function_show_grains(seg_map_iq, inp3, 'ShowLabels', false); % determine which grains to remove
+    inp3 = input('Input area threshold (in um^2): '); close all; figure;
+    thresholded_grain_lbls = function_show_grains(seg_map_iq, round(inp3/um_per_pix), 'ShowLabels', false); % determine which grains to remove
     inp2 = input('1 to try again, enter only to move on: ');
 end
 
