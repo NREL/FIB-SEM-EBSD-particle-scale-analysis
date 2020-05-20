@@ -30,8 +30,6 @@ function ig_orients = function_view_intragrain_misorientation(grain_props)
             cphi = th_phi_mat_cleaned(r(m),c(m), 2);
             [v2(1),v2(2),v2(3)] = sph2cart(cth,cphi,1);
             anlg = vec_angl(v1,v2);
-%             anlg = acosd(dot(v1,v2)/sqrt(sum(v1.^2))/sqrt(sum(v2.^2)));
-%             if anlg > 90; anlg = anlg - 90; end
             xyz_angle_discrepancy2(r(m),c(m))= anlg;
         end
     end
