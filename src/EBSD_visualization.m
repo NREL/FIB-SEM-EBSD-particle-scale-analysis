@@ -28,11 +28,6 @@ second_ptc_r = 9.3/2; % microns, for radial adjustments
 close all; %clearvars -except grain_props ptc_r105090 second_ptc_r
 
 
-%% Edge Map
-fig_edgemap = figure; im = image(grain_props.ptc_edge_map.*grain_props.um_per_pix);
-fig_edgemap.Units = 'inches'; fig_edgemap.Position(3) = 3.0417; fig_edgemap.Position(4) = 2.25;
-im.CDataMapping = 'scaled'; colorbar; colormap(jet)
-
 %% Grain Border Map
 fig_gbmp = figure; fig_gbmp.Units = 'inches';
 imshow(grain_props.ptc_map); hold on;
@@ -67,26 +62,6 @@ if ~isempty(grain_props.grain_border_angles)
     figure_grain_grain_border_angles_histo = figure; histogram(real(grain_props.grain_border_angles(:,5)), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
     figure_grain_grain_border_angles_histo.Color = 'white'; figure_grain_grain_border_angles_histo.Units = 'inches'; figure_grain_grain_border_angles_histo.Position(3) = 2.75; figure_grain_grain_border_angles_histo.Position(4) = 2.25;
     figure_grain_grain_border_angles = function_show_border_angles(grain_props, grain_props.grain_border_angles);
-end
-
-%% Visualizations: Morphology - Francois' Function
-if length(grain_props.grain_areas) > 1
-%     results_d = function_prob_density_function_wrapper(grain_props.grain_areas); % wrapper for Francois' function
-%     figure; plot(results_d.smoothed_probability_density_fct(:,1), results_d.smoothed_probability_density_fct(:,2))
-%     figure; plot(results_d.probability_density_fct(:,1), results_d.probability_density_fct(:,2))
-%     hold on; plot(results_d.smoothed_probability_density_fct(:,1), results_d.smoothed_probability_density_fct(:,2))
-%     figure; histogram(grain_props.grain_areas)
-
-%     [figure_freq_dist, figure_binned_dmap] = function_binned_dmap(grain_props, 4, 'area', label2rgb(grain_props.BW)); %
-   [figure_freq_dist, figure_binned_dmap, dat] = function_binned_dmap(grain_props, 1, 'poa', mat2gray(grain_props.ptc_map)); %
-end
-
-figure_freq_dist.Position = [5.7396 2.4063 2.2604 2.3958];
-
-figure(figure_binned_dmap)
-hold on;
-for n = 1:length(grain_props.grain_boundaries)
-    plot(grain_props.grain_boundaries{n}{1}(:,2), grain_props.grain_boundaries{n}{1}(:,1), 'Color', [0.6, 0.6, 0.6])
 end
 
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
