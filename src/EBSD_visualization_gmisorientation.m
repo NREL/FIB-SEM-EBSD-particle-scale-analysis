@@ -16,16 +16,12 @@ gp_grains = grain_props;
 load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); close all;
 gp_ptc = grain_props;
 
-% most frequency orientation adopted - already created and works, move to
-% SI stuffs
+% move to SI
 load('2020-01-12-15-03-16_EBSD_03_mfv.mat');
 gp_mfv = grain_props; close all;
 
-% % for boundary region
-% % NOTE, THIS HISTOGRAM SHOULD BE OBTAINED FROM FULL GRAIN OVERLAID WITH
-% % SEGMENTATION PATTERN. MADE THE FOLLOWING ANYWAYS. NOT USED
-% load('2020-05-20-18-00-54_e03_boundaries_ebsd_seg.mat');
-% gp_boundary = grain_props;
+% % for boundary region - not used
+% load('2020-05-20-18-00-54_e03_boundaries_ebsd_seg.mat'); gp_boundary = grain_props;
 
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
@@ -65,7 +61,7 @@ h3 = iq_histos(img_quality2(boundary_map)); h3.FaceColor = 'black';
 f11.Position(1) = 7;
 
 %% Intra-grain angles per boundary pixel
-f5 = figure; 
+f5 = figure; hold on;
 igba_histos(gp_ptc);
 f5.Position(1) = 4; f5.Position(2) = 4;
 
@@ -75,7 +71,6 @@ ba_image(gp_grains)
 f7 = figure; 
 ba_image(gp_ptc)
 f7.Position(1) = 4;
-hold on;
 
 % Mask for grain_map
 f12 = figure; f12.Units = 'inches';
@@ -83,8 +78,12 @@ imshow((grain_map))
 f12.Position = [7,1,2.75,2.25];
 
 [angles_b, angles_g] = count_gig_boundaries(gp_ptc, boundary_map);
-ff2 = figure; igba_histos_gen(angles_g); ff2.Position(1) = 1; ff2.Position(2) = 4;
-ff1 = figure; igba_histos_gen(angles_b); ff1.Position(1) = 7; ff1.Position(2) = 4;
+
+ff2 = figure; hold on;
+igba_histos_gen(angles_g); ff2.Position(1) = 1; ff2.Position(2) = 4;
+
+ff1 = figure; hold on;
+igba_histos_gen(angles_b); ff1.Position(1) = 7; ff1.Position(2) = 4;
 
 %% Intragrain fractions
 [g_sz, ig_f, ig_ft, g_szt] = count_ig_fractions(gp_grains);
@@ -112,11 +111,15 @@ end
 
 function igba_histos_gen(M)
 % intergrain boundary angle histograms
+    hold on;
+    angle_ = rand_ori_hist(length(M), 1);
+    h_theory1 = histogram(angle_, 45); h_theory1.EdgeColor = 'none';
     h = histogram(M, 45); h.EdgeColor = 'none';
     xlabel('g-misorientation (degrees)'); ylabel('Frequency')
     f = gcf; f.Units = 'inches'; f.Position = [1,1,2.75,2.25];
     f.Color = 'white';
     ylim([0, 5000])
+    hold off;
 end
 
 function ba_image(M)

@@ -43,13 +43,13 @@ fig_set();
 %% Image Quality histograms
 ptc_map = (gp_ptc.ptc_map > 0);
 grain_map = (gp_grains.ptc_map > 0);
-webbing_map = ptc_map & ~grain_map;
+boundary_map = ptc_map & ~grain_map;
 
 % image_quality, combine
 f8 = figure;
 iq_histos(img_quality2(ptc_map));
 iq_histos(img_quality2(grain_map));
-iq_histos(img_quality2(webbing_map));
+iq_histos(img_quality2(boundary_map));
 
 % Separate
 f9 = figure; 
@@ -61,18 +61,18 @@ h2 = iq_histos(img_quality2(grain_map)); h2.FaceColor = 'black';
 f10.Position(1) = 5;
 
 f11 = figure; 
-h3 = iq_histos(img_quality2(webbing_map)); h3.FaceColor = 'black';
+h3 = iq_histos(img_quality2(boundary_map)); h3.FaceColor = 'black';
 f11.Position(1) = 7;
 
-%% Visualizations: Intra-grain angles per boundary pixel
-f4 = figure; 
-igba_histos(gp_grains)
-f4.Position(2) = 4;
-
+%% Intra-grain angles per boundary pixel
 f5 = figure; 
+angle_ = rand_ori_hist(length(*gp_ptc.intragrain_border_angles(:,5), count);
+h_theory1 = histogram(angle_, 45); h_theory1.EdgeColor = 'none';
 igba_histos(gp_ptc);
 f5.Position(1) = 4; f5.Position(2) = 4;
 
+
+%%
 f6 = figure; 
 ba_image(gp_grains)
 
@@ -81,35 +81,39 @@ ba_image(gp_ptc)
 f7.Position(1) = 4;
 hold on;
 
-%% Intra-grain for boundary region only
 % Mask for grain_map
 f12 = figure; f12.Units = 'inches';
-imshow((~grain_map))
+imshow((grain_map))
 f12.Position = [7,1,2.75,2.25];
 
-angles_in_boundary = 0;
-angles_in_grain = 0;
-angles_b = nan(length(gp_ptc.intragrain_border_angles), 1);
-angles_g = nan(length(gp_ptc.intragrain_border_angles), 1);
+[angles_b, angles_g] = count_gig_boundaries(gp_ptc, boundary_map);
+%%
+count = 15186; 
 
-for n = 1:length(gp_ptc.intragrain_border_angles)
-    x1 = round(gp_ptc.intragrain_border_angles(n,1));
-    y1 = round(gp_ptc.intragrain_border_angles(n,3));
-    angle = gp_ptc.intragrain_border_angles(n,5);
-    
-    if webbing_map(x1, y1)
-        angles_in_boundary = angles_in_boundary + 1;
-        angles_b(angles_in_boundary) = angle;
-    else
-        angles_in_grain = angles_in_grain + 1;
-        angles_g(angles_in_grain) = angle;
-    end
-end
-angles_b(isnan(angles_b)) = [];
-angles_g(isnan(angles_g)) = [];
+angle_ = rand_ori_hist(length(angles_g), count);
+ff2 = figure; hold on;
+h_theory1 = histogram(angle_, 45); h_theory1.EdgeColor = 'none';
+igba_histos_gen(angles_g); ff2.Position(1) = 1; ff2.Position(2) = 4;
 
-figure; igba_histos_gen(angles_b)
-figure; igba_histos_gen(angles_g)
+angle_ = rand_ori_hist(length(angles_b), count);
+ff1 = figure; hold on;
+h_theory1 = histogram(angle_, 45); h_theory1.EdgeColor = 'none';
+igba_histos_gen(angles_b); ff1.Position(1) = 7; ff1.Position(2) = 4;
+
+
+
+% histogram
+% % f = figure;
+% % f.Color = 'white'; f.Units = 'inches'; f.Position(3) = 3.5; f.Position(4) = 3;
+%  xlabel('c-axis misorienation angle (^o)'); ylabel('frequency')
+% 
+% % line ontop of histogram
+% f2 = figure;
+% f2.Color = 'none'; f2.Units = 'inches'; f2.Position(3) = 3.5; f2.Position(4) = 3;
+% plot(edges_new, N, 'k', 'LineWidth', 2)
+% ylim([0 3500]); xlim([-5, 95])
+% xlabel('c-axis misorienation angle (^o)'); ylabel('frequency')
+% f2.CurrentAxes.Color ='none';
 
 %% Intragrain fractions
 [g_sz, ig_f, ig_ft, g_szt] = count_ig_fractions(gp_grains);
@@ -134,18 +138,15 @@ end
 function igba_histos(M)
 % intergrain boundary angle histograms
     igba_histos_gen(M.intragrain_border_angles(:,5))
-%     histogram(M.intragrain_border_angles(:,5), 72)
-%     xlabel('g-misorientation (degrees)'); ylabel('Frequency')
-%     f = gcf; f.Units = 'inches'; f.Position = [1,1,2.75,2.25];
-%     ylim([0, 4000])
 end
 
 function igba_histos_gen(M)
 % intergrain boundary angle histograms
-    histogram(M, 72)
+    h = histogram(M, 45); h.EdgeColor = 'none';
     xlabel('g-misorientation (degrees)'); ylabel('Frequency')
     f = gcf; f.Units = 'inches'; f.Position = [1,1,2.75,2.25];
-    ylim([0, 4000])
+    f.Color = 'white';
+    ylim([0, 5000])
 end
 
 function ba_image(M)
