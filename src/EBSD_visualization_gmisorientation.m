@@ -90,50 +90,19 @@ imshow((~grain_map))
 ffff.Position = [7,1,2.75,2.25];
 
 %% Intragrain fractions
-count = 0;
-grn_size = [];
-grn_frac = [];
-grn_frac_tot = [];
-grn_size_tot = [];
+[g_sz, ig_f, ig_ft, g_szt] = count_ig_fractions(gp_grains);
 
-for n = 1:length(grain_props.grain_labels) % per each grain
-    new_mat = grain_props.BW_intragrain;
-    new_mat(grain_props.BW ~= grain_props.grain_labels(n)) = 0;
-    rem = unique(new_mat); rem(rem == 0) = []; % rem is remaining 
-    grn_size_n = length(find(new_mat > 0));
-    curr_grn_size = [];
-    curr_grn_frac = [];
-    count = 0;
-    for m = 1:length(rem)
-        count = count + 1;
-        curr_grn_size(count) = grn_size_n*(grain_props.um_per_pix^2);
-        [r,c] = find(grain_props.BW_intragrain == rem(m)); % grain size
-        curr_grn_frac(count) = length(r)*(grain_props.um_per_pix^2)/curr_grn_size(count);
-        if curr_grn_frac(count) > 1; error('bigger than grain?'); end
-    end
-    srs = sortrows([curr_grn_size(:), curr_grn_frac(:)], 2, 'descend');
-    srs(1,:) = []; % remove largest component of grain
-    curr_grn_size = srs(:,1);
-    curr_grn_frac = srs(:,2);
-    
-    grn_size = cat(1, grn_size, curr_grn_size(:));
-    grn_frac = cat(1, grn_frac, curr_grn_frac(:));
-    
-    
-    grn_frac_tot(n) = sum(curr_grn_frac); % total amount of grain that is not most frequent size
-    grn_size_tot(n) = grn_size_n*(grain_props.um_per_pix^2);
-end
 % individual intra-grains
-fig_intg_frac = figure; scatter(grn_size, grn_frac, 3, 'filled');
-fig_intg_frac.Color = 'white'; fig_intg_frac.Units = 'inches'; fig_intg_frac.Position(3:4) = [2.75, 2.25];
+f_ig1 = figure; scatter(g_sz, ig_f, 3, 'filled');
+f_ig1.Color = 'white'; f_ig1.Units = 'inches'; f_ig1.Position(3:4) = [2.75, 2.25];
 xlabel('Grain size (\mum)'); ylabel('f_{individual}')
 a_intg_fran = gca; a_intg_fran.FontSize = 10;
 
 % total fraction of intragrains
-fig_intg_tfrac = figure; scatter(grn_size_tot, grn_frac_tot, 8, 'filled');
-fig_intg_tfrac.Color = 'white'; fig_intg_tfrac.Units = 'inches'; fig_intg_tfrac.Position(3:4) = [2.75, 2.25];
+f_ig2 = figure; scatter(g_szt, ig_ft, 8, 'filled');
+f_ig2.Color = 'white'; f_ig2.Units = 'inches'; f_ig2.Position(3:4) = [2.75, 2.25];
 xlabel('Grain size (\mum)'); ylabel('f_{total}')
-fig_intg_tfrac = gca; fig_intg_tfrac.FontSize = 10;
+f_ig2 = gca; f_ig2.FontSize = 10;
 
 
 %% Segmentation Map Remove Unsegmented Regions
