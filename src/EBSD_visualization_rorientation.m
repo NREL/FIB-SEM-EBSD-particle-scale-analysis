@@ -6,13 +6,15 @@
 %% Setup
 close all; clear; clc;
 addpath('Visualization')
+addpath('OldGrainProps')
 
 %% Loading/Inputs
 load('2020-01-12-14-20-15_EBSD_03_run1'); close all;
-ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
-ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
+% load('e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'); close all;
+% grain_props.um_per_pix = grain_props.pix2um; grain_props.um_per_pix = 1/(137-17);
+% grain_props.orientation_frequencies = grain_props.grain_zorientation_frequencies;
 
-% look into 'e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'
+ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
 
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
 for n = 1:length(ptc_r105090)
@@ -23,27 +25,14 @@ for n = 1:length(ptc_r105090)
     r_mis_pixel_map_neg{n} = function_map_rmisorientation(grain_props, -roffset);
 end
 
+%%
 % assuming slice is above the particle center
-f1 = figure; f1.Color = 'white'; f1.Units = 'inches'; f1.Position = [1,2.4,2,2.75];
-h = histogram(angles_to_r_above{2}, 18); hold on;
-[n1, edges] = histcounts(angles_to_r_above{1}, 18);
-[n3, ~] = histcounts(angles_to_r_above{3}, 18);
-err = errorbar(0.5*(edges(1:end-1) + edges(2:end)), ...
-    h.Values, h.Values-min([n1;n3]), max([n1;n3])-h.Values); 
-err.LineStyle = 'none'; err.Color = [0 0 0];
-ylabel('# grains with orientation'); xlabel('Radial misalignment (degrees)')
-ylim([0 30]);
+f1 = figure; 
+hist_clean(angles_to_r_above)
 
 % assuming slice is below the particle center
-f2 = figure; f2.Color = 'white'; f2.Units = 'inches'; f2.Position = [3.1,2.4,2,2.75];
-h = histogram(angles_to_r_below{2}, 18); hold on;
-[n1, edges] = histcounts(angles_to_r_below{1}, 18);
-[n3, ~] = histcounts(angles_to_r_below{3}, 18);
-err = errorbar(0.5*(edges(1:end-1) + edges(2:end)), ...
-    h.Values, h.Values-min([n1;n3]), max([n1;n3])-h.Values); 
-err.LineStyle = 'none'; err.Color = [0 0 0];
-ylabel('# grains with orientation'); xlabel('Radial misalignment (degrees)')
-ylim([0 30]);
+f2 = figure; 
+hist_clean(angles_to_r_below)
 
 %% Colormaps of g-orientation
 f3 = figure; imshow(mat2gray(90 - r_mis_pixel_map_pos{3})); 
@@ -52,11 +41,27 @@ f3.Units = 'inches'; f3.Position = [5.6 2.4 4.2 4.1];
 f4 = figure; imshow(mat2gray(90 - r_mis_pixel_map_neg{3})); 
 f4.Units = 'inches'; f4.Position = [9.9 2.4 4.2 4.1];
 
-%% Figure Modifications
-fighandles = findobj('Type', 'figure');
-for n = 1:length(fighandles)
-    fighandles(n).Color = 'white';
-    figure(fighandles(n));
-    ax_current = gca;
-    ax_current.FontSize = 8;
+%% Plot Function
+function hist_clean(M)
+    f = gcf; 
+    f.Color = 'white'; 
+    f.Units = 'inches'; 
+    f.Position = [1,2.4,2,2.75];
+    
+    h = histogram(M{2}, 18); hold on; 
+    h.EdgeColor = [.4 .4 .4]; 
+    h.EdgeAlpha = .5;
+    
+    ax = gca; ax.FontSize = 8;
+    
+    [n1, edges] = histcounts(M{1}, 18);
+    [n3, ~] = histcounts(M{3}, 18);
+    err = errorbar(0.5*(edges(1:end-1) + edges(2:end)), ...
+        h.Values, h.Values-min([n1;n3]), max([n1;n3])-h.Values); 
+    err.LineStyle = 'none'; err.Color = .3*ones(1,3);
+    err.CapSize = 3;
+    
+    ylabel('# grains with orientation'); 
+    xlabel('r-orientation (degrees)');
+    ylim([0 30]);
 end

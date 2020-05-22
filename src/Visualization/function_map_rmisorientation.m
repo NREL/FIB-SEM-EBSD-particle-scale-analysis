@@ -24,8 +24,4 @@ for n = 1:(sz_bw(1))
 end
 
 dist_map = sqrt(xs.^2 + ys.^2 + roff^2);
-
-% testing
-% figure; s = surf(dist_map); s.EdgeColor = 'none'; view(2)
-% figure; imshow(mat2gray(dist_map));
 end

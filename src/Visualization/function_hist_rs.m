@@ -12,8 +12,6 @@ function angles_to_r = function_hist_rs(grain_props, roffset)
 %       grain_props - grain properties
 %       sphere_radius - estimated or real radius of the NMC particle
 %           sphere.
-%       location - 2 options: 'above' or 'below'. Indicates location of
-%           EBSD slice relative to particle center.
 % 
 %   Outputs
 %       angles_to_r - angles between radial grain direction and the
@@ -31,12 +29,10 @@ function angles_to_r = function_hist_rs(grain_props, roffset)
         
         rgrain = ([grain_props.ptc_centroid, 0]- grn_cntrd).*grain_props.um_per_pix; % um
         ractual = rgrain + [0 0 roffset];
-        ractual = ractual./(sqrt(sum(ractual.^2)));
-
-        temp_angl = acosd(dot(grn_zvec, ractual)/(norm(grn_zvec)*norm(ractual)));
-        if temp_angl > 90
-            temp_angl = temp_angl-90;
-        end
+        ractual = ractual./norm(ractual);
+        
+        temp_angl = vec_angl(grn_zvec, ractual);
+        
         angles_to_r(n) = temp_angl;
     end
 end
