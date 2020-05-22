@@ -4,6 +4,8 @@
 close all; clear; clc;
 addpath('Visualization')
 addpath('3DHistogram')
+addpath('OldGrainProps')
+addpath('GrainProps Outputs')
 
 %% Loading - Originally Used Data in Paper...
 load('e03_cln3_no_ci_grains_only_ebsd_seg_18-Jul-2019 085726.mat'); gp_grains = grain_props;

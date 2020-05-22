@@ -4,6 +4,7 @@
 % each other. 
 close all; clear; clc;
 addpath('Segmentation')
+addpath('Inputs')
 
 %% Inputs
 s.seg_map_filename = 'e03_weka.tiff';

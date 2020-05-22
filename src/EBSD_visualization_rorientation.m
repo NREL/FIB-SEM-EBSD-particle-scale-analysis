@@ -6,6 +6,7 @@
 %% Setup
 close all; clear; clc;
 addpath('Visualization')
+addpath('GrainProps Outputs')
 addpath('OldGrainProps')
 
 %% Loading/Inputs

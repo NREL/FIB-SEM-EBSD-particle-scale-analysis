@@ -7,6 +7,7 @@
 clear; close all; clc;
 addpath('Segmentation')
 addpath('Processing')
+addpath('Inputs')
 
 %% Inputs
 filename = 'test'; % time stamp appended to beginning 
