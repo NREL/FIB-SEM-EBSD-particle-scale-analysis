@@ -24,18 +24,14 @@ fig24 = create_3D_hists(gp_bckgrd); view([-40,0])
 
 %% Backgrounds
 ptc_only = function_mat2col(gp_all.xyz_cleaned);
-f31 = figure; 
-imshow(function_hide_background(ptc_only, gp_all.BW, true))
-f31.Units = 'inches'; f31.Position = [0.1,1,2.5,2.75];
+f31 = figure; imshow(function_hide_background(ptc_only, gp_all.BW, true))
+f31.Position = [1,1,2.5,2.75];
 
-f32 = figure; imshow(function_hide_background(ptc_only, (gp_grains.BW & gp_all.BW), true))
-f32.Units = 'inches'; f32.Position = [2.7,1,2.5,2.75];
+f32 = figure; imshow(function_hide_background(ptc_only, gp_grains.BW, true))
 
-f33 = figure; imshow(function_hide_background(ptc_only, (gp_boundaries.BW & gp_all.BW), true))
-f33.Units = 'inches'; f33.Position = [5.3,1,2.5,2.75];
+f33 = figure; imshow(function_hide_background(ptc_only, gp_boundaries.BW, true))
 
 f34 = figure; imshow(function_hide_background(ptc_only, gp_bckgrd.BW, true))
-f34.Units = 'inches'; f34.Position = [7.8,1,2.5,2.75];
 
 %% Loading - New Set of Data
 

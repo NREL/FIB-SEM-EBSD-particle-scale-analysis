@@ -1,4 +1,4 @@
-function img = function_hide_background(img, seg_map)
+function img = function_hide_background(img, seg_map, white)
 %function_hide_background uses segmetation map (BW) to hide non-grains on
 %any matrix of the same size
 %   img = function_hide_background(img, seg_map)
@@ -16,6 +16,13 @@ function img = function_hide_background(img, seg_map)
 %   Author: Alexander H Quinn, National Renewable Energy Laboratory (NREL)
 %   Guided/Inspired by: Donal P. Finagan, NREL
 %   Additional assistance:  Francois Usseglio-Viretta, NREL
+    
+    col_val = 0
+    if exist('white','var')
+        if white;
+            col_val = 1;
+        end
+    end
 
     if size(img(:,:,1)) ~= size(seg_map(:,:,1)); error('seg_map cannot apply to img, wrong size'); end
     
@@ -24,7 +31,7 @@ function img = function_hide_background(img, seg_map)
     % for each layer of image (1 if black and white, 3 if rgb)
     for n = 1:size(img,3)
         temp = img(:,:,n);
-        temp(seg_map == 0) = 0;
+        temp(seg_map == 0) = col_val;
         img(:,:,n) = temp;
     end
 end
