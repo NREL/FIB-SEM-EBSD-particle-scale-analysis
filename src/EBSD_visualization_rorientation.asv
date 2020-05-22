@@ -15,6 +15,7 @@ load('2020-01-12-14-20-15_EBSD_03_run1'); close all;
 % grain_props.orientation_frequencies = grain_props.grain_zorientation_frequencies;
 
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
+% ptc_r105090 = [6.95, 12.1]./2;
 
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
 for n = 1:length(ptc_r105090)
@@ -35,15 +36,7 @@ f2 = figure;
 hist_clean(angles_to_r_below)
 
 %% Per pixel
-angles_above = process_angle_map(grain_props, r_mis_pixel_map_pos);
-figure;
-hist_clean(angles_above)
-ylim('auto')
 
-angles_below = process_angle_map(grain_props, r_mis_pixel_map_neg);
-figure;
-hist_clean(angles_below)
-ylim('auto')
 
 %% Colormaps of g-orientation
 f3 = figure; imshow(mat2gray(90 - r_mis_pixel_map_pos{2})); 
@@ -64,11 +57,11 @@ function hist_clean(M)
     h.EdgeAlpha = .5;
     
     ax = gca; ax.FontSize = 8;
+    
     [n1, edges] = histcounts(M{1}, h.BinEdges);
     [n3, ~] = histcounts(M{3}, h.BinEdges);
-   
     err = errorbar(0.5*(edges(1:end-1) + edges(2:end)), ...
-        h.Values, h.Values-min([n1;n3;h.Values]), max([n1;n3;h.Values])-h.Values); 
+        h.Values, h.Values-min([n1;n3]), max([n1;n3])-h.Values); 
     err.LineStyle = 'none'; err.Color = .3*ones(1,3);
     err.CapSize = 3;
     
@@ -76,12 +69,26 @@ function hist_clean(M)
     xlabel('r-orientation (degrees)');
     ylim([0 30]);
 end
+function hist_per_pixel(M)
+    rm_bckgrd = r_mis_pixel_map_pos{2}; rm_bckgrd(~grain_props.BW) = nan;
+    lin_angles2 = reshape(rm_bckgrd, numel(rm_bckgrd), 1); 
+    lin_angles2(isnan(lin_angles2)) = [];
 
-function M = process_angle_map(grain_props, A)
-    for n = 1:length(A)
-        rm_bckgrd = A{n}; rm_bckgrd(~grain_props.BW) = nan;
-        lin_angles2 = reshape(rm_bckgrd, numel(rm_bckgrd), 1); 
-        lin_angles2(isnan(lin_angles2)) = [];
-        M{n} = lin_angles2;
-    end
+    rm_bckgrd = r_mis_pixel_map_pos{1}; rm_bckgrd(~grain_props.BW) = nan;
+    lin_angles1 = reshape(rm_bckgrd, numel(rm_bckgrd), 1); 
+    lin_angles1(isnan(lin_angles1)) = [];
+
+    rm_bckgrd = r_mis_pixel_map_pos{3}; rm_bckgrd(~grain_props.BW) = nan;
+    lin_angles3 = reshape(rm_bckgrd, numel(rm_bckgrd), 1); 
+    lin_angles3(isnan(lin_angles3)) = [];
+
+    figure; h = histogram(lin_angles2, 18); hold on;
+    [n1, edges] = histcounts(lin_angles1, h.BinEdges);
+        [n3, ~] = histcounts(lin_angles3, h.BinEdges);
+    err = errorbar(0.5*(edges(1:end-1) + edges(2:end)), ...
+        h.Values, h.Values-min([n1;n3]), max([n1;n3])-h.Values); 
+    err.LineStyle = 'none'; err.Color = .3*ones(1,3);
+    err.CapSize = 3;
+
 end
+

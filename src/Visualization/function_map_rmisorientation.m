@@ -15,9 +15,7 @@ for n = 1:(sz_bw(1))
             c_dir = squeeze(grain_props.xyz_pos(n,m,:)); % c-axis of current pixel
             r_real = [xs(n,m), ys(n,m), roff]';
             
-            a = 2*atan2d(norm( c_dir*norm(r_real) - norm(c_dir)*r_real), norm(c_dir*norm(r_real) + norm(c_dir)*r_real));
-            if 90-a <= 0; a = 180-a; end % obtain acute angle            
-            
+            a = vec_angl(c_dir, r_real);
             map(n,m) = a;
         end
     end
