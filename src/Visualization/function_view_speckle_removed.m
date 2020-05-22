@@ -23,11 +23,11 @@ function img_filtered_noise = function_view_speckle_removed(grain_props)
     xyz_angle_discrepancy = zeros(size(xyz_cleaned,1), size(xyz_cleaned,2));
     for n = 1:size(xyz_cleaned)
         for m = 1:size(xyz_cleaned, 2)
-            angl = acosd(dot(xyz_cleaned(n,m,:), xyz_pos(n,m,:))/(sqrt(sum(xyz_cleaned(n,m,:).^2))*sqrt(sum(xyz_pos(n,m,:).^2))));
-            if angl > 90
-                angl = 180-angl;
-            end
-            xyz_angle_discrepancy(n,m) = angl;
+            
+            n1 = squeeze(xyz_cleaned(n,m,:));
+            n2 = squeeze(xyz_pos(n,m,:));
+            
+            xyz_angle_discrepancy(n,m) = vec_angl(n1, n2);
         end
     end
     xyz_angle_discrepancy = real(xyz_angle_discrepancy);

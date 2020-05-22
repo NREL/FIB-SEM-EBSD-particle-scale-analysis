@@ -5,7 +5,7 @@ function [fig_size_dist_plots, dmap_rad_bounds_fig, results_d2] = function_binne
 %   function_binned_dmap(edge_dmap, grain_props, radial_bins,
 %   pixel_to_um_fctr) returns 2 figures: (1) a colorized map 
 %   
-%   Inputs
+%   Inputs 
 %       grain_props -grain properties, should have ptc_edge_map
 %       radial_bins - number of subdivisions between particle center/edge
 %       parameter - must be 'perimeter', 'eccentricity', or 'area', which

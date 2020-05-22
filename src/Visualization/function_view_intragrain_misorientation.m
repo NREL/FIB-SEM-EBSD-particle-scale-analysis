@@ -29,8 +29,8 @@ function ig_orients = function_view_intragrain_misorientation(grain_props)
             cth = th_phi_mat_cleaned(r(m),c(m), 1);
             cphi = th_phi_mat_cleaned(r(m),c(m), 2);
             [v2(1),v2(2),v2(3)] = sph2cart(cth,cphi,1);
-            anlg = vec_angl(v1,v2);
-            xyz_angle_discrepancy2(r(m),c(m))= anlg;
+            angl = vec_angl(v1,v2);
+            xyz_angle_discrepancy2(r(m),c(m))= angl;
         end
     end
 

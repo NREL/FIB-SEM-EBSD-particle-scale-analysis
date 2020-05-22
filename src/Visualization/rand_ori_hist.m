@@ -31,11 +31,8 @@ angle_ = zeros(length(xyz1),1);
 for k = 1:1:length(xyz1)
     x = xyz1(k,:);
     y = xyz2(k,:);
-    angle_(k) =  rad2deg (2*atan2(  norm( x*norm(y) - norm(x)*y) , norm( x*norm(y) + norm(x)*y) ) );
     
-    if angle_(k) > 90 % angles > 90 have an equivalent direction (theta - 90)
-        angle_(k) = angle_(k) - 90;
-    end
+    angle_(k) = vec_angl(x,y);
 end
 
 [N, edges] = histcounts(angle_, 45);
