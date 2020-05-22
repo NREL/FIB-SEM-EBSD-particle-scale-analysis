@@ -1,9 +1,11 @@
-%% analysis using grain_props
+%% Description
+% Use of functions to compile visualizations not seen elsewhere.
+
 close all; clear; clc;
 addpath('Visualization')
 
-%% Load mat File
-load('2020-01-12-14-20-15_EBSD_03_run1');
+%% Loading
+load('2020-05-22-18-39-12_test.mat');
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
 %% Grain Border Map
@@ -14,7 +16,7 @@ for n = 1:length(grain_props.grain_boundaries)
 end
 fig_gbmp.Position(3) = 2.75; fig_gbmp.Position(4) = 2.25;
 
-%% Visualizations: Show Intragrain Boundaries
+%% Intragrain Boundaries
 figure; imshow(label2rgb(grain_props.BW)); hold on; 
 for n = 1:length(grain_props.intragrain_boundaries)
     if iscell(grain_props.intragrain_boundaries{n})
@@ -22,7 +24,7 @@ for n = 1:length(grain_props.intragrain_boundaries)
     end
 end
 
-%% Visualization: Montage
+%% Montage
 xyzz_img = (xyzz-min(xyzz,[],'all'))./max(xyzz-min(xyzz,[],'all'),[],'all'); xyzz_img = function_apply_CI(xyzz_img, CI_map, 0); % normalize xyz values to positive 0-1 
 xyz_pos_img = function_mat2col(xyz_pos); 
 xyz_pos_img_ci = function_apply_CI(xyz_pos_img, CI_map, 0); % normalize xyz values to positive 0-1

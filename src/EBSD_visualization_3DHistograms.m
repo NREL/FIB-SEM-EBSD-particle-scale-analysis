@@ -1,4 +1,6 @@
-%% analysis using grain_props
+%% Description
+% Figure 6 3D histograms.
+
 close all; clear; clc;
 addpath('Visualization')
 addpath('3DHistogram')

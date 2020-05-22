@@ -16,13 +16,6 @@ gp_grains = grain_props;
 load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); close all;
 gp_ptc = grain_props;
 
-% move to SI
-load('2020-01-12-15-03-16_EBSD_03_mfv.mat');
-gp_mfv = grain_props; close all;
-
-% % for boundary region - not used
-% load('2020-05-20-18-00-54_e03_boundaries_ebsd_seg.mat'); gp_boundary = grain_props;
-
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
 %% Color maps for impact of cleaning
@@ -95,13 +88,6 @@ fig_set(); xlabel('Grain size (\mum)'); ylabel('f_{total}')
 % total fraction of intragrains
 f14 = figure; scatter(g_szt, ig_ft, 8, 'filled');
 fig_set(); xlabel('Grain size (\mum)'); ylabel('f_{total}')
-
-%% Grain-grain angles per boundary pixel - move to SI
-if ~isempty(gp_mfv.grain_border_angles)
-    f100 = figure; histogram(real(gp_mfv.grain_border_angles(:,5)), 72); xlabel('g-misorientation (degrees)'); ylabel('Frequency')
-    function_show_border_angles(gp_mfv, gp_mfv.grain_border_angles);
-    f100.Color = 'white'; f100.Units = 'inches'; f100.Position(3) = 2.75; f100.Position(4) = 2.25;
-end
 
 %% Plot Help Functions
 function igba_histos(M)

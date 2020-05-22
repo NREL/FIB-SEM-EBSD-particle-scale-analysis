@@ -1,4 +1,5 @@
 function [angles_b, angles_g] = count_gig_boundaries(grain_props, bd_map)
+% count grain and intragrain boundaries, make sure is in bd_map
 
     angles_in_boundary = 0;
     angles_in_grain = 0;

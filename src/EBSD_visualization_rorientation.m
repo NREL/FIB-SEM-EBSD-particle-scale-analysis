@@ -9,7 +9,7 @@ addpath('Visualization')
 addpath('OldGrainProps')
 
 %% Loading/Inputs
-load('2020-01-12-14-20-15_EBSD_03_run1'); close all;
+load('2020-05-22-18-39-12_test.mat'); close all;
 % load('e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'); close all;
 % grain_props.um_per_pix = grain_props.pix2um; grain_props.um_per_pix = 1/(137-17);
 % grain_props.orientation_frequencies = grain_props.grain_zorientation_frequencies;

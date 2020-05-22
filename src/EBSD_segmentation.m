@@ -2,17 +2,16 @@
 % The following code guides the user through the segmentation and cleaning
 % process to achieve an image with segmented grains which are adjacent to
 % each other. 
-
 close all; clear; clc;
 addpath('Segmentation')
 
 %% Inputs
-s.seg_map_filename = 'avg_interpol_seg1.tiff';
+s.seg_map_filename = 'e03_weka.tiff';
 s.scale = 1;
 s.um_per_pix = 1/(144-18); % pixel scaling
 s.struct_el = strel('disk', 4); % for boundary cleaning
 
-%% Call guiding function
+%% Segmentation Procedure Walkthrough
 op = segmentation_parameters(s);
 
 %% Plot Figures

@@ -1,14 +1,12 @@
-%% About
-% This script is to create Figure 5 in The application of electron 
-% backscatter diffraction for investigating intra-particle grain
-% architectures and boundaries in lithium ion electrodes
+%% Description
+% Figure 5 plots.
 
 %% Setup
 close all; clear; clc;
 addpath('Visualization')
 
 %% File Loading
-load('2020-01-12-14-20-15_EBSD_03_run1'); close all;
+load('2020-05-22-18-39-12_test.mat'); close all;
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
 %% Edge Map

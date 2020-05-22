@@ -1,15 +1,21 @@
+%% Description
+% Use outputs from EBSD_segmentation to grain_props, a data structure that
+% contains grain orientation information. A segmentation resolution 
+% 1000 x 1000 takes roughly 30 minutes. Scale segmentation patterns
+% appropriately.
+
 clear; close all; clc;
 addpath('Segmentation')
 addpath('Processing')
 
 %% Inputs
-filename = 'EBSD_03_run1'; % time stamp appended to end of filename
-save_mat = true;           % true: creates Matlab data file of everything
-save_excel = false;        % true: creates excel form of grain_props
+filename = 'test'; % time stamp appended to beginning 
+save_mat = true;           % true: .mat of everything
+save_excel = false;        % true: excel form of grain_props
 
 %% Inputs
 % segmentation and EBSD data
-seg_map_fn = 'avg_interpol_seg1.tiff'; % This segmentation determines um_per_pix
+seg_map_fn = 'e03_weka.tiff'; % This segmentation reslution determines um_per_pix
 ebsd_text_fn = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 
 % scaling
@@ -17,13 +23,13 @@ scale = 1;               % length scale - smaller scales = faster processing
 um_per_pix = 1/(144-18); % pixel scaling, here for IPF map of 1031 x 1024
 
 % swapping and focus region
-focus = 'boundaries';       % 'boundaries', 'grains', or all
-need_swap_labels = false;   % certain patterns might need swapping
+focus = '';                   % 'boundaries', 'grains', or all
+need_swap_labels = false;     % certain patterns might need swapping
 
 % Segmentation to extract these values 
-boundary_lbls = [45];         % green region, use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
-bckgrd_lbls = [1];            %  red region
-remove_lbls = [];             % remove grains outside secondary particle
+boundary_lbls = [45];                    % green region, use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
+bckgrd_lbls = [1];                       % red region
+remove_lbls = [3 22 14 25 9 12 617 678]; % remove grains outside secondary particle
 A_thresh_um = 0.016;          % [=] um^2, threshold for what is considered a grain
 CI_thres = -0.01;             % 1-CI_thresh is confidence interval, if < 0 all data used
 mult_secondary_ptcs = false;  % if secondary particles in segmentation map
