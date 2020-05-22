@@ -2,10 +2,12 @@ clear; close all; clc;
 addpath('Segmentation')
 addpath('Processing')
 
-%% Inputs
-filename = 'EBSD_03_run1'; % time stamp appended to end of filename
-save_mat = true;           % true: creates Matlab data file of everything
-save_excel = false;        % true: creates excel form of grain_props
+%% Saving
+% time stamp appended to end of filename
+% filename = 'EBSD_03_run1';
+filename = 'e03_boundaries_ebsd_seg';
+save_mat = true; % true: creates Matlab data file of everything
+save_excel = false; % true: creates excel form of grain_props
 
 %% Inputs
 % segmentation and EBSD data
@@ -21,12 +23,12 @@ focus = 'boundaries';       % 'boundaries', 'grains', or all
 need_swap_labels = false;   % certain patterns might need swapping
 
 % Segmentation to extract these values 
-boundary_lbls = [45];         % green region, use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
-bckgrd_lbls = [1];            %  red region
-remove_lbls = [];             % remove grains outside secondary particle
-A_thresh_um = 0.016;          % [=] um^2, threshold for what is considered a grain
-CI_thres = -0.01;             % 1-CI_thresh is confidence interval, if < 0 all data used
-mult_secondary_ptcs = false;  % if secondary particles in segmentation map
+boundary_lbls = [45];           % green region, use 9,13,23,45 for 1/8, 1/4, 1/2, 1 scale respectively
+bckgrd_lbls = [1];              %  red region
+remove_lbls = [];               % remove grains outside secondary particle
+A_thresh_um = 0.016;            % [=] um^2, threshold for what is considered a grain
+CI_thres = -0.01;               % 1-CI_thresh is confidence interval, if < 0 all data used
+mult_secondary_ptcs = false;    % if secondary particles in segmentation map
 
 % Cleaning
 angle_threshold = 1.8;  % [=] degrees
