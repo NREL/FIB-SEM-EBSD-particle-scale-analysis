@@ -5,8 +5,7 @@ function [phi1_intp, cap_phi_intp, phi2_intp, img_quality_intp, CI_intp] = funct
 %   [phi1_intp, cap_phi_intp, phi2_intp, img_quality_intp, CI_intp] =
 %   function_interpolate_random_ebsd_text(ebsd_text_data, ebsd_img,
 %   varargin) takses the  array of ebsd_text_data, puts it in matrix form,
-%   and reshapes its size with interpolation into the ebsd img. Note the
-%   hexagonal data here can be managed.
+%   as opposed to in hexagonal form.
 %   
 %   Inputs
 %       ebsd_text_data - data array returned by function_import_ebsd_text
@@ -62,9 +61,6 @@ function [phi1_intp, cap_phi_intp, phi2_intp, img_quality_intp, CI_intp] = funct
         image_quality(idx_y, idx_x) = A(n,6);
         CI(idx_y, idx_x) = A(n,7);
     end
-    
-    % ERROR HERE - CANNOT SCALE DOWN BECAUSE OF RANDOM WALK ON
-    % NON-INDEPENDENT VARIABLES
     
     alpha = nanwalk(alpha, sample_mode);
     beta = nanwalk(beta, sample_mode);
