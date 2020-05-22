@@ -37,14 +37,22 @@ f33.Units = 'inches'; f33.Position = [5.3,1,2.5,2.75];
 f34 = figure; imshow(function_hide_background(ptc_only, gp_bckgrd.BW, true))
 f34.Units = 'inches'; f34.Position = [7.8,1,2.5,2.75];
 
+%% Colorbar
+f41 = figure; colorbar(); colormap([zeros(255,1), zeros(255,1), (1:255)']./255)
+fig_stds();
+
+f42 = figure; colorbar(); colormap([zeros(255,1), (1:255)', zeros(255,1)]./255)
+fig_stds();
+
+f43 = figure; colorbar(); colormap([(1:255)', zeros(255,1), zeros(255,1)]./255)
+fig_stds();
+
 %% Loading - New Set of Data
 
-%% Figure Modifications
-fighandles = findobj('Type', 'figure');
-for n = 1:length(fighandles)
-    fighandles(n).Color = 'white';
-%     fighandles(n).Position = [120 120 250 285];
-    figure(fighandles(n));
-    ax_current = gca;
-    ax_current.FontSize = 10;
+
+%% Plot Help Functions
+
+function fig_stds()
+    f = gcf; f.Color = 'white'; f.Position = [455   211   357   124];
+    ax = gca; ax.Visible = 'off'; 
 end

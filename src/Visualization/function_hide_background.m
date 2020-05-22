@@ -17,9 +17,9 @@ function img = function_hide_background(img, seg_map, white)
 %   Guided/Inspired by: Donal P. Finagan, NREL
 %   Additional assistance:  Francois Usseglio-Viretta, NREL
     
-    col_val = 0
+    col_val = 0;
     if exist('white','var')
-        if white;
+        if white
             col_val = 1;
         end
     end
