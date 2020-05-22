@@ -2,7 +2,7 @@
 % Use outputs from EBSD_segmentation to grain_props, a data structure that
 % contains grain orientation information. A segmentation resolution 
 % 1000 x 1000 takes roughly 30 minutes. Scale segmentation patterns
-% appropriately.
+% appropriately. Saves grain_props file to GrainProps Outputs folder.
 
 clear; close all; clc;
 addpath('Segmentation')
@@ -144,7 +144,7 @@ if save_mat
     dt = datetime; dt.Format = 'uuuu-MM-dd-HH-mm-ss';
     ctime = char(dt);
     save_name = [ctime, '_', filename, '.mat'];
-    save(save_name)
+    save(['GrainProps Outputs\', save_name])
 end
 if save_excel
     % Create and Save Tables
