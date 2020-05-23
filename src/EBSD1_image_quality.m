@@ -2,7 +2,7 @@
 % This script is to create an image quality map that can be used in the
 % Weka segmentation.
 addpath('Inputs')
-
+ 
 %% Inputs
 txt = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 img = 'DF-NMC-CF-01-e_03.tif';
