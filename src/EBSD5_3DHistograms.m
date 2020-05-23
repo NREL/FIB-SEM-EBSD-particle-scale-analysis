@@ -41,16 +41,6 @@ f33.Units = 'inches'; f33.Position = [5.3,1,2.5,2.75];
 f34 = figure; imshow(function_hide_background(ptc_only, gp_bckgrd.BW, true))
 f34.Units = 'inches'; f34.Position = [7.8,1,2.5,2.75];
 
-%% Colorbar
-f41 = figure; colorbar(); colormap([zeros(255,1), zeros(255,1), (1:255)']./255)
-fig_stds();
-
-f42 = figure; colorbar(); colormap([zeros(255,1), (1:255)', zeros(255,1)]./255)
-fig_stds();
-
-f43 = figure; colorbar(); colormap([(1:255)', zeros(255,1), zeros(255,1)]./255)
-fig_stds();
-
 %% Loading - New Set of Data
 
 

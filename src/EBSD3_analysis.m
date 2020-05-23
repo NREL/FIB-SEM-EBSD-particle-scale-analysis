@@ -11,7 +11,7 @@ addpath('Inputs')
 
 %% Inputs
 filename = 'test'; % time stamp appended to beginning 
-save_mat = true;           % true: .mat of everything
+save_mat = false;           % true: .mat of everything
 save_excel = false;        % true: excel form of grain_props
 
 %% Inputs

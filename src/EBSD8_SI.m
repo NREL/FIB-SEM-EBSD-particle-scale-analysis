@@ -3,6 +3,7 @@
 
 addpath('Inputs')
 addpath('GrainProps Outputs')
+addpath('Visualization')
 
 % move to SI
 load('2020-01-12-15-03-16_EBSD_03_mfv.mat');

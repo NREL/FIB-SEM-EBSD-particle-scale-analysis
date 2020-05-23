@@ -5,6 +5,7 @@
 close all; clear; clc;
 addpath('Visualization')
 addpath('GrainProps Outputs')
+addpath('Inputs')
 
 %% File Loading
 load('2020-05-22-18-39-12_test.mat'); close all;

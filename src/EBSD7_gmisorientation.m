@@ -7,6 +7,8 @@
 close all; clear; clc;
 addpath('Visualization')
 addpath('GrainProps Outputs')
+addpath('Inputs')
+addpath('Processing')
 
 %% Loading
 % grains only

@@ -2,12 +2,13 @@
 % This script is to create an image quality map that can be used in the
 % Weka segmentation.
 addpath('Inputs')
+addpath('Segmentation')
  
 %% Inputs
 txt = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 img = 'DF-NMC-CF-01-e_03.tif';
 output = 'test';
-save_file = true;
+save_file = false;
 
 %% Loading
 ebsd_text = function_import_ebsd_text(txt); % ebsd text file
