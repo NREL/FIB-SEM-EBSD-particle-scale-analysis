@@ -16,14 +16,12 @@ C(isnan(C(:,1)), :) = [];
     'Subdivision', 1,...
     'ColorFaces', true, ...
     'PlotMethod', 'extrusion', ... % default, (above is 
-    'BaseLine', 0.4); % baseline modifies origin location (0 = origin)
+    'BaseLine', 0.4,...
+    'Normalization', 33562); % baseline modifies origin location (0 = origin)
     a = gca;
     a.Children(5).Clipping = 'off';
     a.Children(6).Clipping = 'off';
     a.Children(3).Clipping = 'off';
     a.Children(4).Clipping = 'off';
     a.Children(2).Clipping = 'off';
-
-% [figure_3dhist_per_pixel,~,~,frames_3dhist_per_pixel] = function_hist3D_xyz(C, 'ProduceVideo', true, 'ColorFaces', true);
-% v=VideoWriter([append_save_name, 'orientations_per_pixel.avi']); open(v); for n=1:length(frames_3dhist_per_pixel); writeVideo(v, frames_3dhist_per_pixel{n}); end; close(v);
 end

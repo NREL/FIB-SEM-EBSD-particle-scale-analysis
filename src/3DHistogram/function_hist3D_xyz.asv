@@ -76,7 +76,7 @@ function [fig, data, center_vertex, frames] = function_hist3D_xyz(xyz, varargin)
     addParameter(p, 'FilterFrequency', default_filter_frequency);
     addParameter(p, 'Representation', default_representation);
     addParameter(p, 'Subdivision', default_subdivision);
-    addParameter(p, 'Normalization', default_normalization);
+    addParameter(p, 'Normalization', default_normalization); 'Normalization'
     parse(p,xyz,varargin{:});
     
     xyz = p.Results.xyz;
@@ -239,8 +239,7 @@ function [fig, data, center_vertex, frames] = function_hist3D_xyz(xyz, varargin)
     if isnan(normalization)
         counts = counts/max(counts);
     else
-        max(counts)
-        counts = counts/normalization;
+        counts = counts/normalizaton;
     end
     
     counts(counts > filter_frequency) = 0; % filtering for frequency here

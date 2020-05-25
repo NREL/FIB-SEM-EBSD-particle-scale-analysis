@@ -16,15 +16,15 @@ close all;
 
 %% Orientations by pixel - Original Uncleaned Data
 % directional histogram, pixel-by-pixel
-fig11 = create_3D_hists(gp_all); view([140,0])
-fig12 = create_3D_hists(gp_grains); view([140,0])
-fig13 = create_3D_hists(gp_boundaries); view([140,0])
-fig14 = create_3D_hists(gp_bckgrd); view([140,0])
+fig11 = create_3D_hists(gp_all); view([140,0]); fig_stds()
+fig12 = create_3D_hists(gp_grains); view([140,0]); fig_stds()
+fig13 = create_3D_hists(gp_boundaries); view([140,0]); fig_stds()
+fig14 = create_3D_hists(gp_bckgrd); view([140,0]); fig_stds()
 
-fig21 = create_3D_hists(gp_all); view([-40,0])
-fig22 = create_3D_hists(gp_grains); view([-40,0])
-fig23 = create_3D_hists(gp_boundaries); view([-40,0])
-fig24 = create_3D_hists(gp_bckgrd); view([-40,0])
+fig21 = create_3D_hists(gp_all); view([-40,0]); fig_stds()
+fig22 = create_3D_hists(gp_grains); view([-40,0]); fig_stds()
+fig23 = create_3D_hists(gp_boundaries); view([-40,0]); fig_stds()
+fig24 = create_3D_hists(gp_bckgrd); view([-40,0]); fig_stds()
 
 %% Backgrounds
 ptc_only = function_mat2col(gp_all.xyz_cleaned);
@@ -47,6 +47,7 @@ f34.Units = 'inches'; f34.Position = [7.8,1,2.5,2.75];
 %% Plot Help Functions
 
 function fig_stds()
-    f = gcf; f.Color = 'white'; f.Position = [455   211   357   124];
+    f = gcf; f.Color = 'white'; f.Units = 'inches'; 
+%     f.Position = [1, 3, 2.5, 2.75];
     ax = gca; ax.Visible = 'off'; 
 end
