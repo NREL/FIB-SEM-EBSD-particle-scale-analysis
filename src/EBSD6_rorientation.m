@@ -41,12 +41,13 @@ angles_above = process_angle_map(grain_props, r_mis_pixel_map_pos);
 figure;
 hist_clean(angles_above)
 ylim('auto')
+ylabel('pixels with orientation')
 
 angles_below = process_angle_map(grain_props, r_mis_pixel_map_neg);
 figure;
 hist_clean(angles_below)
 ylim('auto')
-
+ylabel('pixels with orientation')
 %% Colormaps of g-orientation
 f3 = figure; imshow(mat2gray(90 - r_mis_pixel_map_pos{2})); 
 f3.Units = 'inches'; f3.Position = [5.6 2.4 4.2 4.1];

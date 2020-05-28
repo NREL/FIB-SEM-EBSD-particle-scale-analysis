@@ -134,7 +134,7 @@ function igba_histos_gen(M)
     angle_ = rand_ori_hist(length(M), 1);
     h_theory1 = histogram(angle_, 45); h_theory1.EdgeColor = 'none';
     h = histogram(M, 45); h.EdgeColor = 'none';
-    xlabel('g-misorientation (degrees)'); ylabel('Count (pixel edges)')
+    xlabel('g-misorientation (degrees)'); ylabel('Frequency (pixel edge)')
     f = gcf; f.Units = 'inches'; f.Position = [1,1,2.75,2.25];
     f.Color = 'white';
     ylim([0, 5000])
@@ -154,8 +154,8 @@ function h = iq_histos(M)
     f.Color = 'white'; 
     h = histogram(M, 50); hold on;
     h.NumBins
-    xlim([6 13]*1e4); ylim([0 3.2e4]);
-    xlabel('iq'); ylabel('Count (pixels)')
+    xlim([6 13]*1e4); ylim([0 e4]);
+    xlabel('iq'); ylabel('count')
     ax = gca; ax.FontSize = 8;
     ax.Box = 'off';
     h.EdgeColor = 'none';

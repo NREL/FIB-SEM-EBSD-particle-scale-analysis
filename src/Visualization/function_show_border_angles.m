@@ -32,12 +32,19 @@ function function_show_border_angles(grain_props, deg_mat)
     end
     
     xyz_cleaned_image_ci = function_apply_seg_map_to_img(xyz_cleaned_image_ci, grain_props.BW);
+    xyz_cleaned_image_ci(xyz_cleaned_image_ci == 0) = 1;
+    
+%     for n = 1:size(xyz_cleaned_image_ci, 3)
+%         tempp = xyz_cleaned_image_ci(:,:,n);
+%         tempp(tempp == 0) = 1;
+%     end
     
     % rgb_euler_meaned
     deg22 = deg_intragrain; deg22(deg_intragrain(:,1)  < 0,:) = [];
     pos_y22 = pos_y_intragrain; pos_y22(deg_intragrain(:,1)  < 0,:) = [];
     pos_x22 = pos_x_intragrain; pos_x22(deg_intragrain(:,1)  < 0,:) = [];
     c_data22 = c_datazz; c_data22(deg_intragrain(:,1)  < 0,:) = [];
+    
     
     imshow(xyz_cleaned_image_ci); hold on;
     scatter(mean(pos_y22,2), mean(pos_x22,2),1.5,c_data22, 'filled')
