@@ -1,11 +1,11 @@
-function fig = create_3D_hists(grain_props)
+function fig = create_3D_hists(grain_props, mask)
 
 
 
 xyz_pos_for_reshape = grain_props.xyz_cleaned;
 for n = 1:size(xyz_pos_for_reshape,3)
     temp_mat = xyz_pos_for_reshape(:,:,n);
-    temp_mat(grain_props.BW == 0) = NaN; % ignore noise regions
+    temp_mat(mask == 0) = NaN; % ignore noise regions
     xyz_pos_for_reshape(:,:,n) = temp_mat;
 end
 A = permute(xyz_pos_for_reshape, [3,1,2]); % want to acquire data along column, 3 is of interest (x,y,z values)
@@ -26,4 +26,6 @@ C(isnan(C(:,1)), :) = [];
     a.Children(3).Clipping = 'off';
     a.Children(4).Clipping = 'off';
     a.Children(2).Clipping = 'off';
+    
+lighting none;
 end

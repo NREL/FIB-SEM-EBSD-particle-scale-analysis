@@ -96,9 +96,8 @@ if savefigs
     saveas(f61, 'Figures/6_mask_all', save_fmt)
     saveas(f62, 'Figures/6_mask_grains', save_fmt)
     saveas(f63, 'Figures/6_mask_boundary', save_fmt)
-    saveas(f64, 'Figures/6_mask_background', save_fmt)
+    saveas(f64, 'Figures/6_mask_bac', save_fmt)
 end
-
 %% Plot Help Functions
 function fig_stds()
     f = gcf; f.Color = 'white'; f.Units = 'inches'; 
