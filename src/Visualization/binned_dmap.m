@@ -21,6 +21,8 @@ function [fig_hist, fig_sections, result] = binned_dmap(grain_props, radial_bins
 %   Guided/Inspired by: Donal P. Finagan, NREL
 %   Additional assistance:  Francois Usseglio-Viretta, NREL
     
+    TOL = 2; % tolerance to pixel position near region divider (in pixels)
+
     if nargin < 4 
         background_img = grain_props.xyz_cleaned;
     end
@@ -37,14 +39,13 @@ function [fig_hist, fig_sections, result] = binned_dmap(grain_props, radial_bins
     fig_sections = figure; fig_sections.Color = 'white';
     fig_sections.Units = 'inches'; 
     
-    imshow(function_apply_seg_map_to_img(background_img, grain_props.BW))
+    imshow(hide_background(background_img, grain_props.BW))
     for n = 1:length(gbs)
         hold on;
         plot(gbs{n}{1}(:,2), gbs{n}{1}(:,1), 'white', 'LineWidth', 1); 
     end
     
     hold on
-    tol = 2;
 
     sorted_distances = sort(grain_props.grain_dist);
     radial_bounds = linspace(0, sorted_distances(end), radial_bins+1);
@@ -69,7 +70,7 @@ function [fig_hist, fig_sections, result] = binned_dmap(grain_props, radial_bins
 
     for n = 1:length(radial_bounds)-1
         lgd_string{n} = [num2str(radial_bounds(n)*pix2um, '%.1f'), ' - ' num2str(radial_bounds(n+1)*pix2um, '%.1f'), ' \mum'];
-        d_rng = [radial_bounds(n), radial_bounds(n+1)]
+        d_rng = [radial_bounds(n), radial_bounds(n+1)];
         count = 1; collect_prop = [];
         for m = 1:length(grain_props.grain_centroids) % input (grain_props)
             curr_d = grain_props.grain_dist(m);
@@ -92,7 +93,7 @@ function [fig_hist, fig_sections, result] = binned_dmap(grain_props, radial_bins
         count2 = 1; xss = []; yss = [];
         for k = 1:size(edge_dmap, 1)
             for m = 1:size(edge_dmap, 2)
-                if n ~= length(radial_bounds)-1 && (abs(edge_dmap(k,m) - d_rng(1)) < tol || abs(edge_dmap(k,m) - d_rng(2)) < tol)
+                if n ~= length(radial_bounds)-1 && (abs(edge_dmap(k,m) - d_rng(1)) < TOL || abs(edge_dmap(k,m) - d_rng(2)) < TOL)
                     if edge_dmap(k,m) ~= 0
                         xss(count2) = k; yss(count2) = m; 
                         count2 = count2 + 1;

@@ -1,8 +1,8 @@
-function angles_to_r = function_hist_rs(grain_props, roffset)
-%function_hist_rs calculates the actual distance from the particle center
+function angles_to_r = r_orientations(grain_props, roffset)
+%r_orientations calculates the actual distance from the particle center
 %to each grain of interest. Each grain of interest is assumed to be above
 %plane of center. Particles are assumed to be spherical.
-%   angles_to_r = function_hist_rs(grain_props, roffset, ptc_cntrd,
+%   angles_to_r = r_orientations(grain_props, roffset, ptc_cntrd,
 %   pixel_to_um_fctr) calculates the distance from a given cross-sectional
 %       image to the center of a particle, and includes that vector when
 %       calculating the orientation of any grain relative to the center of

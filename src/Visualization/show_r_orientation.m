@@ -1,4 +1,4 @@
-function map = function_map_rmisorientation(grain_props, roff)
+function map = show_r_orientation(grain_props, roff)
 % roff - roffset in um
 
 sz_bw = size(grain_props.BW);

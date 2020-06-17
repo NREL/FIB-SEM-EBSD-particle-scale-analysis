@@ -22,14 +22,14 @@ gp_ptc = grain_props;
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
 %% Color maps for impact of cleaning
-f1 = figure; imshow(function_view_speckle_removed(gp_grains));
+f1 = figure; imshow(show_removed_noise(gp_grains));
 fig_set();
 
-f2 = figure; imshow(function_view_speckle_removed(gp_ptc)); 
+f2 = figure; imshow(show_removed_noise(gp_ptc)); 
 fig_set();
 
 %% Red-white intragrain misorientations
-f3 = figure; imshow(function_view_intragrain_misorientation(gp_grains)); 
+f3 = figure; imshow(show_intragrain_misorientation(gp_grains)); 
 fig_set();
 
 %% Image Quality histograms
@@ -143,7 +143,7 @@ end
 
 function ba_image(M)
 % boundary angle maps
-    function_show_border_angles(M, M.intragrain_border_angles);
+    show_border_angles(M, M.intragrain_border_angles);
     f = gcf; f.Units = 'inches'; f.Position = [1,1,2.75,2.25];
     f.Color = 'white'; 
 end

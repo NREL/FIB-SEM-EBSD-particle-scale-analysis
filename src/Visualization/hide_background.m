@@ -1,7 +1,7 @@
-function img = function_hide_background(img, seg_map, white)
-%function_hide_background uses segmetation map (BW) to hide non-grains on
+function img = hide_background(img, seg_map, white)
+%hide_background uses segmetation map (BW) to hide non-grains on
 %any matrix of the same size
-%   img = function_hide_background(img, seg_map)
+%   img = hide_background(img, seg_map)
 %   
 %   Inputs
 %       img - 2D or 3D matrix where sizes of dimensions 1,2 are the same as
@@ -26,7 +26,7 @@ function img = function_hide_background(img, seg_map, white)
 
     if size(img(:,:,1)) ~= size(seg_map(:,:,1)); error('seg_map cannot apply to img, wrong size'); end
     
-    img = function_mat2col(img); % create image from matrix
+    img = mat2col(img); % create image from matrix
     
     % for each layer of image (1 if black and white, 3 if rgb)
     for n = 1:size(img,3)

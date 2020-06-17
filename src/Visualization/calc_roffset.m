@@ -1,4 +1,4 @@
-function roffset = function_roffset(grain_props, sphere_radius)
+function roffset = calc_roffset(grain_props, sphere_radius)
 
 rslice = sqrt(grain_props.ptc_area*(grain_props.um_per_pix^2)/pi); % um ^2
 if rslice < sphere_radius

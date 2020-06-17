@@ -1,6 +1,6 @@
-function img_filtered_noise = function_view_speckle_removed(grain_props)
-%function_view_speckle_removed demonstrates cleaning effect on vector data
-%   img_filtered_noise = function_view_speckle_removed(grain_props)
+function img_filtered_noise = show_removed_noise(grain_props)
+%show_removed_noise demonstrates cleaning effect on vector data
+%   img_filtered_noise = show_removed_noise(grain_props)
 %       compares the cleaned image to the original where the original image
 %       has only equivalent orientations corrected for.
 %   

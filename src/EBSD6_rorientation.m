@@ -17,11 +17,11 @@ ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
 
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
 for n = 1:length(ptc_r105090)
-    roffset = function_roffset(grain_props, ptc_r105090(n));
-    angles_to_r_above{n} = function_hist_rs(grain_props, roffset);
-    angles_to_r_below{n} = function_hist_rs(grain_props, -roffset);
-    r_mis_pixel_map_pos{n} = function_map_rmisorientation(grain_props, roffset);
-    r_mis_pixel_map_neg{n} = function_map_rmisorientation(grain_props, -roffset);
+    roffset = calc_roffset(grain_props, ptc_r105090(n));
+    angles_to_r_above{n} = r_orientations(grain_props, roffset);
+    angles_to_r_below{n} = r_orientations(grain_props, -roffset);
+    r_mis_pixel_map_pos{n} = show_r_orientation(grain_props, roffset);
+    r_mis_pixel_map_neg{n} = show_r_orientation(grain_props, -roffset);
 end
 
 %% Per Grain

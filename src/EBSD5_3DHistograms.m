@@ -29,21 +29,21 @@ f53 = create_3D_hists(new_all, (~new_grains.BW & new_all.BW)); view([-40,0]); fi
 f54 = create_3D_hists(new_all, gp_bckgrd.BW); view([-40,0]); fig_stds()
 
 %% New backgrounds
-ptc_only = function_mat2col(new_all.xyz_cleaned);
+ptc_only = mat2col(new_all.xyz_cleaned);
 f61 = figure; f61.Color = 'white';
-imshow(function_hide_background(ptc_only, new_all.BW, true))
+imshow(hide_background(ptc_only, new_all.BW, true))
 f61.Units = 'inches'; f61.Position = [0.1,1,2.5,2.75];
 
 f62 = figure; f62.Color = 'white';
-imshow(function_hide_background(ptc_only, new_grains.BW, true))
+imshow(hide_background(ptc_only, new_grains.BW, true))
 f62.Units = 'inches'; f62.Position = [2.7,1,2.5,2.75];
 
 f63 = figure; f63.Color = 'white';
-imshow(function_hide_background(ptc_only, (~new_grains.BW & new_all.BW), true))
+imshow(hide_background(ptc_only, (~new_grains.BW & new_all.BW), true))
 f63.Units = 'inches'; f63.Position = [5.3,1,2.5,2.75];
 
 f64 = figure; f64.Color = 'white';
-imshow(function_hide_background(ptc_only, gp_bckgrd.BW, true))
+imshow(hide_background(ptc_only, gp_bckgrd.BW, true))
 f64.Units = 'inches'; f64.Position = [7.8,1,2.5,2.75];
 
 %% Saving

@@ -136,7 +136,7 @@ grain_props = function_intragrain_boundary_angles_raster(grain_props); % angles 
 grain_props = function_intragrain_properties(grain_props);
 
 %% Visualize Cleaning Result
-figure; imshow(function_mat2col(grain_props.xyz_cleaned));
+figure; imshow(mat2col(grain_props.xyz_cleaned));
 
 %% Save Data
 if save_mat

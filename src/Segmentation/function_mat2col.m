@@ -1,6 +1,6 @@
-function mat = function_mat2col(mat)
-%function_mat2col applies mat2gray on all layers of image to normalize them
-%   mat = function_mat2col(mat)
+function mat = mat2col(mat)
+%mat2col applies mat2gray on all layers of image to normalize them
+%   mat = mat2col(mat)
 %   
 %   Inputs
 %       mat - matrix of numeric values

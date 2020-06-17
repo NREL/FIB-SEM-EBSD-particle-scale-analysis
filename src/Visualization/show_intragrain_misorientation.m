@@ -1,7 +1,7 @@
-function ig_orients = function_view_intragrain_misorientation(grain_props)
-%function_view_intragrain_misorientation takes each grain in an image, and
+function ig_orients = show_intragrain_misorientation(grain_props)
+%show_intragrain_misorientation takes each grain in an image, and
 %color codes grains based on their different orientation
-%   ig_orients = function_view_intragrain_misorientation(grain_props) uses
+%   ig_orients = show_intragrain_misorientation(grain_props) uses
 %       the grain_props.orientation_frequencies, which has a tally of
 %       the directions and the frequency, to get the most commmon direction
 %   

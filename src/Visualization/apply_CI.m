@@ -1,6 +1,6 @@
-function output_mat = function_apply_CI(matrix, CI_map, replace_value)
+function output_mat = apply_CI(matrix, CI_map, replace_value)
 %function replace values in matrix wherever in CI_map value = 0
-%   item_CI_modified = function_apply_CI(matrix, CI_map, replace_value)
+%   item_CI_modified = apply_CI(matrix, CI_map, replace_value)
 %   takes CI_map, a boolean 2D matrix, and wherever in CI_map the value is
 %   0, this location is made to equal 0
 %   

@@ -1,7 +1,7 @@
-function function_show_border_angles(grain_props, deg_mat)
-%function_show_border_angles creates image which colors boundaries with
+function show_border_angles(grain_props, deg_mat)
+%show_border_angles creates image which colors boundaries with
 %respect to the inter/intragrain boundary
-%   fig = function_show_border_angles(grain_props, deg_mat)
+%   fig = show_border_angles(grain_props, deg_mat)
 %   
 %   Inputs
 %       grain_props - grain_props matrix
@@ -19,7 +19,7 @@ function function_show_border_angles(grain_props, deg_mat)
     pos_y_intragrain = deg_mat(:,3:4);
     deg_intragrain = deg_mat(:,5);
     
-    xyz_cleaned_image_ci = function_mat2col(grain_props.xyz_cleaned); xyz_cleaned_image_ci = function_apply_CI(xyz_cleaned_image_ci, grain_props.CI, 0);
+    xyz_cleaned_image_ci = mat2col(grain_props.xyz_cleaned); xyz_cleaned_image_ci = apply_CI(xyz_cleaned_image_ci, grain_props.CI, 0);
     xyz_cleaned_image_ci = rgb2gray(xyz_cleaned_image_ci);
     xyz_cleaned_image_ci = cat(3, xyz_cleaned_image_ci, xyz_cleaned_image_ci, xyz_cleaned_image_ci);
     
@@ -31,13 +31,8 @@ function function_show_border_angles(grain_props, deg_mat)
         c_datazz(n,:) = colmapzz(col_idx, :);
     end
     
-    xyz_cleaned_image_ci = function_apply_seg_map_to_img(xyz_cleaned_image_ci, grain_props.BW);
+    xyz_cleaned_image_ci = hide_background(xyz_cleaned_image_ci, grain_props.BW);
     xyz_cleaned_image_ci(xyz_cleaned_image_ci == 0) = 1;
-    
-%     for n = 1:size(xyz_cleaned_image_ci, 3)
-%         tempp = xyz_cleaned_image_ci(:,:,n);
-%         tempp(tempp == 0) = 1;
-%     end
     
     % rgb_euler_meaned
     deg22 = deg_intragrain; deg22(deg_intragrain(:,1)  < 0,:) = [];
