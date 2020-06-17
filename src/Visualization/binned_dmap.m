@@ -1,12 +1,12 @@
-function [fig_hist, fig_sections, result] = function_binned_dmap(grain_props, radial_bins, parameter, background_img)
+function [fig_hist, fig_sections, result] = binned_dmap(grain_props, radial_bins, parameter, background_img)
 %function plots radial map on specified image and reports distribution of
 %values between radial groups
 %   [fig_size_dist_plots, dmap_rad_bounds_fig] =
-%   function_binned_dmap(edge_dmap, grain_props, radial_bins,
+%   binned_dmap(edge_dmap, grain_props, radial_bins,
 %   pixel_to_um_fctr) returns 2 figures: (1) a colorized map 
 %   
 %   Inputs 
-%       grain_props -grain properties, should have ptc_edge_map
+%       grain_props - grain properties, should have ptc_edge_map
 %       radial_bins - number of subdivisions between particle center/edge
 %       parameter - must be 'perimeter', 'eccentricity', or 'area', which
 %           are plotted with radial bins

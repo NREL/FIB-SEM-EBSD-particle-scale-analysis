@@ -18,10 +18,10 @@ im.CDataMapping = 'scaled'; colorbar; colormap(jet)
 
 %% Morphology 4 bins
 if length(grain_props.grain_areas) > 1
-    [eccentricity_freq, dn1] = function_binned_dmap(grain_props, 4, 'eccentricity', label2rgb(grain_props.BW));
-    [area_freq, dn2] = function_binned_dmap(grain_props, 4, 'area', label2rgb(grain_props.BW));
+    [eccentricity_freq, dn1] = binned_dmap(grain_props, 4, 'eccentricity', label2rgb(grain_props.BW));
+    [area_freq, dn2] = binned_dmap(grain_props, 4, 'area', label2rgb(grain_props.BW));
     close(dn1); close(dn2);
-    [poa_freq, figure_binned_dmap, dat] = function_binned_dmap(grain_props, 4, 'poa', mat2gray(grain_props.ptc_map)); %
+    [poa_freq, figure_binned_dmap, dat] = binned_dmap(grain_props, 4, 'poa', mat2gray(grain_props.ptc_map)); %
 end
 
 % Background to show bins 
@@ -37,10 +37,10 @@ figure_binned_dmap.Position = [7.9 4 2.2604 2.3958];
 
 %% Morphology 1 bin
 if length(grain_props.grain_areas) > 1
-    [eccentricity_freq, dn1] = function_binned_dmap(grain_props, 1, 'eccentricity', label2rgb(grain_props.BW));
-    [area_freq, dn2] = function_binned_dmap(grain_props, 1, 'area', label2rgb(grain_props.BW));
+    [eccentricity_freq, dn1] = binned_dmap(grain_props, 1, 'eccentricity', label2rgb(grain_props.BW));
+    [area_freq, dn2] = binned_dmap(grain_props, 1, 'area', label2rgb(grain_props.BW));
     close(dn1); close(dn2);
-    [poa_freq, figure_binned_dmap, dat] = function_binned_dmap(grain_props, 1, 'poa', mat2gray(grain_props.ptc_map)); %
+    [poa_freq, figure_binned_dmap, dat] = binned_dmap(grain_props, 1, 'poa', mat2gray(grain_props.ptc_map)); %
 end
 
 % Background to show bins 
