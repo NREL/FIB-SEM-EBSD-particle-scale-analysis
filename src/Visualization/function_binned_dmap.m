@@ -79,7 +79,7 @@ function [fig_hist, fig_sections, result] = function_binned_dmap(grain_props, ra
             end
         end
         figure(fig_hist); % OUTPUT
-        result = function_prob_density_function_wrapper(collect_prop);
+        result = prob_density(collect_prop);
         
         if size(result.smoothed_probability_density_fct, 1) ~= 0
             result.smoothed_probability_density_fct = cat(1, [0,0], result.smoothed_probability_density_fct);
