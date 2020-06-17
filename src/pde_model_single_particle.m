@@ -135,7 +135,7 @@ function j = j_flux(ur, V, csmax, T, celec)
 % Current flux expression for boundary of particle where redox event occurs
 % Inputs
 %   ur  - dimentionless Li conc solid-phase at interface
-%   V   - overpoential relative to same reference as 
+%   V   - overpoential relative to same reference as U
 % csmax - maximum concentration of Li in solid
 %   T   - temperature
 % celec - electrolyte concentration of Li+

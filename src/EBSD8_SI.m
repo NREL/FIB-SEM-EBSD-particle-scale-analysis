@@ -82,6 +82,7 @@ function fig = hist3D_wrapper(C, baseline, normalization)
     a.Children(3).Clipping = 'off';
     a.Children(4).Clipping = 'off';
     a.Children(2).Clipping = 'off';
+    lighting none;
 end
 
 function fig = hist3D_wrapper_subdv(C, subdv)
@@ -98,4 +99,5 @@ function fig = hist3D_wrapper_subdv(C, subdv)
     a.Children(3).Clipping = 'off';
     a.Children(4).Clipping = 'off';
     a.Children(2).Clipping = 'off';
+    lighting none;
 end

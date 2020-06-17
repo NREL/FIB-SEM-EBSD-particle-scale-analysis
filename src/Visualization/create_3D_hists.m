@@ -19,13 +19,13 @@ C(isnan(C(:,1)), :) = [];
     'ColorFaces', true, ...
     'PlotMethod', 'extrusion', ... % default, (above is 
     'BaseLine', 0.4,...
-    'Normalization', 33562); % baseline modifies origin location (0 = origin)
+    'Normalization', 35052); % baseline modifies origin location (0 = origin)
     a = gca;
     a.Children(5).Clipping = 'off';
     a.Children(6).Clipping = 'off';
     a.Children(3).Clipping = 'off';
     a.Children(4).Clipping = 'off';
     a.Children(2).Clipping = 'off';
-    
+
 lighting none;
 end

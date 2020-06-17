@@ -166,5 +166,5 @@ function fig_set()
     f.Color = 'white'; 
     f.Units = 'inches'; 
     f.Position(3:4) = [2.75, 2.25];
-    f = gca; f.FontSize = 8;
+    f = gca; f.FontSize = 7;
 end
