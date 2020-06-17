@@ -7,17 +7,12 @@
 close all; clear; clc;
 addpath('Visualization')
 addpath('GrainProps Outputs')
-addpath('OldGrainProps')
 addpath('Processing')
 
 savefigs = true;
 
 %% Loading/Inputs
 load('2020-05-22-18-39-12_test.mat'); close all;
-% load('e03_updtRandXYZ_cln3_ci05_ebsd_seg_11-Aug-2019 213139.mat'); close all;
-% grain_props.um_per_pix = grain_props.pix2um; grain_props.um_per_pix = 1/(137-17);
-% grain_props.orientation_frequencies = grain_props.grain_zorientation_frequencies;
-
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
 
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter
