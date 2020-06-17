@@ -1,6 +1,6 @@
-function dataArray = function_import_ebsd_text(filename, startRow, endRow)
-%function_import_ebsd_text extracts ebsd text information
-%   dataArray = function_import_ebsd_text(filename) find filename in same
+function dataArray = import_ebsd(filename, startRow, endRow)
+%import_ebsd extracts ebsd text information
+%   dataArray = import_ebsd(filename) find filename in same
 %       directory and returns the cell array dataArray, where each column
 %       is a vector of values from a column in the text file
 %   

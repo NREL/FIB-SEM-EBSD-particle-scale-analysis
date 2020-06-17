@@ -1,6 +1,6 @@
-function grains = function_clean_grains(seg_map, keep_grains)
-%function_clean_grains repalces grains not in keep_grains w/ NaN
-%   grains = function_clean_grains(seg_map, keep_grains)
+function grains = clean_grains(seg_map, keep_grains)
+%clean_grains repalces grains not in keep_grains w/ NaN
+%   grains = clean_grains(seg_map, keep_grains)
 %       removes grains from matrix segemeneted from seg_map labeled in
 %       keep_grains
 %   Inputs
@@ -11,7 +11,7 @@ function grains = function_clean_grains(seg_map, keep_grains)
 % 
 %   Outputs
 %       grains - NaN-containing matrix which has removed grains. Intended
-%           for use in function_combine_grains_webs
+%           for use in combine_grain_boundary
 %
 %   Author: Alexander H Quinn, National Renewable Energy Laboratory (NREL)
 %   Guided/Inspired by: Donal P. Finagan, NREL

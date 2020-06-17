@@ -1,5 +1,5 @@
-function [xyz_mat, xyz_pos] = function_get_001xyz(euler_data)
-%function_get_001xyz converts EBSD Euler data into a 3D matrix
+function [xyz_mat, xyz_pos] = caxis_vector(euler_data)
+%caxis_vector converts EBSD Euler data into a 3D matrix
 %containing vectors which represent 001 orientations (the c-axis)
 %   [x,y] =  function(a,b) does ....
 %   

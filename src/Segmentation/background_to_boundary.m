@@ -1,6 +1,6 @@
-function BW_rdy_seg = function_bckgrnd_to_web(BW_combined, bck_lbls)
-%function_bckgrnd_to_web returns segmented matrix ready for dilation of grains 
-%   BW_rdy_seg = function_bckgrnd_to_web(BW_combined, num, bck_lbls) uses
+function BW_rdy_seg = background_to_boundary(BW_combined, bck_lbls)
+%background_to_boundary returns segmented matrix ready for dilation of grains 
+%   BW_rdy_seg = background_to_boundary(BW_combined, num, bck_lbls) uses
 %       bck_lbls to replace anything but actual background with value = 1,
 %       which corresponds to webbing
 %   
@@ -9,7 +9,7 @@ function BW_rdy_seg = function_bckgrnd_to_web(BW_combined, bck_lbls)
 %           1 is a grain 
 %       num - specifies that 0 is background
 %       bck_lbls - specifies which backgorudn labelsa are to be kept as
-%           background, as visualized in function_show_backgrounds
+%           background, as visualized in show_seg_background
 % 
 %   Outputs
 %       BW_rdy_seg - segmented matrix ready for use in

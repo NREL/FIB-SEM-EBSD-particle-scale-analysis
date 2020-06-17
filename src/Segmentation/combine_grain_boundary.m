@@ -1,6 +1,6 @@
-function BW_iq_comb = function_combine_grains_webs(BW_grains, BW_web)
-%function_combine_grains_webs merges cleaned webbing and grains
-%   BW_iq_comb =  function_combine_grains_webs(a,b) does ....
+function BW_iq_comb = combine_grain_boundary(BW_grains, BW_web)
+%combine_grain_boundary merges cleaned webbing and grains
+%   BW_iq_comb =  combine_grain_boundary(a,b) does ....
 %   
 %   Inputs
 %       BW_grains - segmented grains as with NaNs filling in locations

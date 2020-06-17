@@ -1,14 +1,14 @@
-function [phi1_intp, cap_phi_intp, phi2_intp, img_quality_intp, CI_intp] = function_interpolate_random_ebsd_text(ebsd_text_data, ebsd_img, varargin)
-%function_interpolate_random_ebsd_text matches EBSD data to resolution of
+function [phi1_intp, cap_phi_intp, phi2_intp, img_quality_intp, CI_intp] = intpol_ebsd(ebsd_text_data, ebsd_img, varargin)
+%intpol_ebsd matches EBSD data to resolution of
 %ebsd_img but fills in missing points in hexgaonl grid by random selection
 %of neighbors, or by averaging
 %   [phi1_intp, cap_phi_intp, phi2_intp, img_quality_intp, CI_intp] =
-%   function_interpolate_random_ebsd_text(ebsd_text_data, ebsd_img,
+%   intpol_ebsd(ebsd_text_data, ebsd_img,
 %   varargin) takses the  array of ebsd_text_data, puts it in matrix form,
 %   as opposed to in hexagonal form.
 %   
 %   Inputs
-%       ebsd_text_data - data array returned by function_import_ebsd_text
+%       ebsd_text_data - data array returned by import_ebsd
 %       ebsd_img - image to match size of ebsd_text_data to
 % 
 %   Outputs

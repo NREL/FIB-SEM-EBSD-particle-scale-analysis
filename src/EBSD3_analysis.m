@@ -8,6 +8,7 @@ clear; close all; clc;
 addpath('Segmentation')
 addpath('Processing')
 addpath('Inputs')
+addpath('Visualization')
 
 %% Inputs
 filename = 'test'; % time stamp appended to beginning 
@@ -53,11 +54,11 @@ N_thresh_pix = N_thresh_um/(grain_props.um_per_pix^2);
 %% Load Image Quality Weka Segmentation and EBSD Text File
 seg_map = imread(seg_map_fn); % segmentation
 seg_map = imresize(seg_map, scale, 'nearest');
-ebsd_text = function_import_ebsd_text(ebsd_text_fn); % EBSD txt file
-function_bwshowlabels(seg_map, 'first')
+ebsd_text = import_ebsd(ebsd_text_fn); % EBSD txt file
+bwshowlabels(seg_map, 'first')
 
 if need_swap_labels
-    seg_map = function_swap_labels(seg_map,1,2);
+    seg_map = swap_labels(seg_map,1,2);
 end
 
 %% Process Segmentation
@@ -75,44 +76,44 @@ elseif strcmp(focus, 'grains') % note connectivity lost here
 else
     disk_size = floor(4*scale^2);
     struct_el = strel('disk', disk_size);
-    fig_web = function_show_web(seg_map, 'ShowLabels', false);
+    fig_web = show_seg_boundary(seg_map, 'ShowLabels', false);
 
-    fig_grains = function_show_grains(seg_map, 'ShowLabels', false);
-    thresholded_grain_lbls = function_show_grains(seg_map, A_thresh_pix); % determine which grains to remove
+    fig_grains = show_seg_grains(seg_map, 'ShowLabels', false);
+    thresholded_grain_lbls = show_seg_grains(seg_map, A_thresh_pix); % determine which grains to remove
 
-    [BW_iq_web, BW_cleaned_web] = function_clean_web(seg_map, boundary_lbls, struct_el);
+    [BW_iq_web, BW_cleaned_web] = clean_boundary(seg_map, boundary_lbls, struct_el);
 
-    BW_iq = function_clean_grains(seg_map, thresholded_grain_lbls);% threshold grains, repalce with NaNs
-    BW_iq_comb = function_combine_grains_webs(BW_iq, BW_iq_web); % combined grain/webs, replace NaNs with webbing
+    BW_iq = clean_grains(seg_map, thresholded_grain_lbls);% threshold grains, repalce with NaNs
+    BW_iq_comb = combine_grain_boundary(BW_iq, BW_iq_web); % combined grain/webs, replace NaNs with webbing
 
-    fig_og_backgrounds = function_show_backgrounds(BW_iq_comb, 1);
+    fig_og_backgrounds = show_seg_background(BW_iq_comb, 1);
 
-    BW_iq_comb_clean = function_bckgrnd_to_web(BW_iq_comb, bckgrd_lbls); % clean created background 'particles', replace 0 with webbing
-    [new_BW_iq, BW_seq] = function_remove_web(BW_iq_comb_clean); % dilation into webbing
+    BW_iq_comb_clean = background_to_boundary(BW_iq_comb, bckgrd_lbls); % clean created background 'particles', replace 0 with webbing
+    [new_BW_iq, BW_seq] = dilate_grains(BW_iq_comb_clean); % dilation into webbing
     figure; montage(BW_seq) %% shows segmentation steps
 
     new_BW_iq(new_BW_iq == 1) = 0; % cleaning for leftover segmentation boundaries
-    function_bwshowlabels(new_BW_iq, 'centroid'); % show labels of all particles
+    bwshowlabels(new_BW_iq, 'centroid'); % show labels of all particles
 
-    BW_final = function_bwremovelabels(new_BW_iq, remove_lbls); % remove labels and normalize remaining
-    function_bwshowlabels(BW_final, 'centroid'); % show labels of all particles
+    BW_final = bwremovelabels(new_BW_iq, remove_lbls); % remove labels and normalize remaining
+    bwshowlabels(BW_final, 'centroid'); % show labels of all particles
     grain_props.BW = BW_final; % sequentially numbered BWs
     figure; imshow(label2rgb(BW_final))
 end
 
 %% CI, EBSD Euler Extracted
 % confidence interval map
-[~, ~, ~, img_quality2, CIs] = function_interpolate_random_ebsd_text(ebsd_text, seg_map, 'mode', 'average');
+[~, ~, ~, img_quality2, CIs] = intpol_ebsd(ebsd_text, seg_map, 'mode', 'average');
 CI_map = (CIs > CI_thres);
 grain_props.CI = CI_map; % 1 on these maps means ok to use
 
 % Euler data (phi1, cap_phi, phi2)
-[phi1, cap_phi, phi2, image_quality] = function_interpolate_random_ebsd_text(ebsd_text, seg_map, 'mode', 'random');
+[phi1, cap_phi, phi2, image_quality] = intpol_ebsd(ebsd_text, seg_map, 'mode', 'random');
 euler_data = cat(3, phi1, cap_phi, phi2);
 grain_props.euler = euler_data; % 3 layer data with phi1, cap_phi, phi2 (Bunge Euler Convention)
 
 % Z-direction calculation, normalization for picture, and theta-phi map
-[xyzz, xyz_pos] = function_get_001xyz(euler_data);
+[xyzz, xyz_pos] = caxis_vector(euler_data);
 th_phi_mat = function_xyzmat2sphmat(xyz_pos);
 grain_props.tp_mat = th_phi_mat;
 grain_props.xyz_pos = xyz_pos;

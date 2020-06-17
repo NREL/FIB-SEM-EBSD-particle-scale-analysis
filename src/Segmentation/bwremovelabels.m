@@ -1,6 +1,6 @@
-function BW = function_bwremovelabels(BW, rm_lab)
-%function_bwremovelabels removes and/or relabels segmented matrix 
-%   BW = function_bwremovelabels(BW, rm_lab) removes all regions in BW that
+function BW = bwremovelabels(BW, rm_lab)
+%bwremovelabels removes and/or relabels segmented matrix 
+%   BW = bwremovelabels(BW, rm_lab) removes all regions in BW that
 %       are listed in rm_lab and relabels regions to be consecutive
 %   
 %   Inputs

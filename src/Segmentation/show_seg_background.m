@@ -1,8 +1,8 @@
-function lbls2include = function_show_backgrounds(BW_iq_comb, varargin)
-%function_show_backgrounds labels each background component by number to
-%   fig =  function_show_backgrounds(BW_iq_comb) segements background and
+function lbls2include = show_seg_background(BW_iq_comb, varargin)
+%show_seg_background labels each background component by number to
+%   fig =  show_seg_background(BW_iq_comb) segements background and
 %       labels resulting regions
-%   fig =  function_show_backgrounds(BW_iq_comb, num_backgrounds)
+%   fig =  show_seg_background(BW_iq_comb, num_backgrounds)
 %       segments background but only the biggest num_backgrounds 
 %
 %   Inputs
@@ -64,7 +64,7 @@ BCK_LBL = 0; % background of matrix
     BW_iq_white_dot_rid_labeled(~ismember(BW_iq_white_dot_rid_labeled, lbls2include)) = 0;
     
     if show_labels
-        function_bwshowlabels(BW_iq_white_dot_rid_labeled, 'first');
+        bwshowlabels(BW_iq_white_dot_rid_labeled, 'first');
     else
         imshow(label2rgb(BW_iq_white_dot_rid_labeled))
     end

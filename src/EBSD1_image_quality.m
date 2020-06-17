@@ -11,11 +11,11 @@ output = 'test';
 save_file = false;
 
 %% Loading
-ebsd_text = function_import_ebsd_text(txt); % ebsd text file
+ebsd_text = import_ebsd(txt); % ebsd text file
 ebsd_img = imread(img); % for size of related ebsd img
 
 % interpolated image
-[~, ~, ~, iq, ~] = function_interpolate_random_ebsd_text(ebsd_text, ebsd_img);
+[~, ~, ~, iq, ~] = intpol_ebsd(ebsd_text, ebsd_img);
 
 % show image quality map
 figure; imshow(iq./max(iq,[],'all'));

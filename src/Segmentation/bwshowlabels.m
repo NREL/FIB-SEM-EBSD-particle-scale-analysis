@@ -1,6 +1,6 @@
-function function_bwshowlabels(BW, location)
-% function_bwshowlabels labels numbered matrices
-%   fig = function_bwshowlabels(BW, location) displays a text for each
+function bwshowlabels(BW, location)
+% bwshowlabels labels numbered matrices
+%   fig = bwshowlabels(BW, location) displays a text for each
 %   unique integer in a 2D matrix. This does not include
 %   
 %   Inputs

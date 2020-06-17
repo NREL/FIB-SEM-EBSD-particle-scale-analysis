@@ -1,11 +1,11 @@
-function [web, BW_webs_removed] = function_clean_web(seg_map, keep_webs, struct_el)
-% function_clean_web separates webbing from segementation map
-%   [web, BW_webs_removed] = function_clean_web(seg_map) returns matrix with
+function [web, BW_webs_removed] = clean_boundary(seg_map, keep_webs, struct_el)
+% clean_boundary separates webbing from segementation map
+%   [web, BW_webs_removed] = clean_boundary(seg_map) returns matrix with
 %       only webbing, but segmented
-%   [web, BW_webs_removed] = function_clean_web(seg_map, keep_webs) returns
+%   [web, BW_webs_removed] = clean_boundary(seg_map, keep_webs) returns
 %       matrix with only webbings specified by labels in keep_webs. Use
-%       function_show_web to see labels
-%   [web, BW_webs_removed] = function_clean_web(seg_map, keep_webs, struct_el)
+%       show_seg_boundary to see labels
+%   [web, BW_webs_removed] = clean_boundary(seg_map, keep_webs, struct_el)
 %       applies dilation and erosion to webbings specified by
 %       keep_webs using structural element struct_el
 %   

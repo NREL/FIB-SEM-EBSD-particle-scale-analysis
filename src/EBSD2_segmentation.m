@@ -17,19 +17,19 @@ op = segmentation_parameters(s);
 
 %% Plot Figures
 figure; imshow(label2rgb(op.ogsegmentation))
-figure; function_bwshowlabels(op.ogsegmentation, 'first')
-figure; function_show_web(op.ogsegmentation, 'ShowLabels', false);
-figure; function_show_web(op.ogsegmentation, 4);
+figure; bwshowlabels(op.ogsegmentation, 'first')
+figure; show_seg_boundary(op.ogsegmentation, 'ShowLabels', false);
+figure; show_seg_boundary(op.ogsegmentation, 4);
 figure; imshow(label2rgb(op.cleaned_webbing))
 figure; imshow(label2rgb(op.cleaned_webbing_closed))
-figure; function_show_grains(op.ogsegmentation, 0, 'ShowLabels', false); % all grains
+figure; show_seg_grains(op.ogsegmentation, 0, 'ShowLabels', false); % all grains
 figure; imshow(label2rgb(op.thresholded_grains))
 figure; imshow(label2rgb(op.boundary_grain_combined))
 figure; imshow(label2rgb(op.boundary_grain_combined_cleaned)) % prior to dilation
 figure; montage(op.dilation_sequence) %% shows segmentation steps
-figure; function_bwshowlabels(op.dilated_final, 'centroid');
+figure; bwshowlabels(op.dilated_final, 'centroid');
 figure; imshow(label2rgb(op.final))
-figure; function_bwshowlabels(op.final, 'centroid'); % show labels of all particles
+figure; bwshowlabels(op.final, 'centroid'); % show labels of all particles
 
 %% Stack figures
 gr_root = groot;

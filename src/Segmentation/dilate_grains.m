@@ -1,8 +1,8 @@
-function [new_BW, BW_seq] = function_remove_web(BW, struct_el)
-%function_remove_web dilates grains (integers>1) into webbing 
-%   new_Bw = function_remove_web(BW) dilates grains into webbing one-by-one
+function [new_BW, BW_seq] = dilate_grains(BW, struct_el)
+%dilate_grains dilates grains (integers>1) into webbing 
+%   new_Bw = dilate_grains(BW) dilates grains into webbing one-by-one
 %       using strel('disk', 3)
-%   new_Bw = function_remove_web(BW, struct_el) can specify structuring
+%   new_Bw = dilate_grains(BW, struct_el) can specify structuring
 %       element as desired for dilation operations
 %   
 %   Inputs

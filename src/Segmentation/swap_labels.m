@@ -1,6 +1,6 @@
-function mat = function_swap_labels(mat, n1, n2)
-%function_swap_labels swaps n1,n in a matrix mat 
-%   mat = function_swap_labels(mat, n1, n2)
+function mat = swap_labels(mat, n1, n2)
+%swap_labels swaps n1,n in a matrix mat 
+%   mat = swap_labels(mat, n1, n2)
 %   
 %   Inputs
 %       mat - segmented or integer matrix

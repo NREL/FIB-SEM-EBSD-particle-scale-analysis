@@ -1,4 +1,4 @@
-function lbls2include = function_show_grains(seg_map, varargin)
+function lbls2include = show_seg_grains(seg_map, varargin)
 %function_get_grains shows grains and their labels
 %   lbls = function_get_grains(seg_map) displays grains with or without 
 %       labels 
@@ -57,7 +57,7 @@ GRAIN_NUM = 2;
     BW_iq(ismember(BW_iq, lbls_with_small_areas)) = 0;
     
     if show_labels
-        function_bwshowlabels(BW_iq, 'centroid');
+        bwshowlabels(BW_iq, 'centroid');
     else
         imshow(label2rgb(BW_iq));
     end
