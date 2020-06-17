@@ -1,7 +1,7 @@
-function grain_props = function_intragrain_boundary_angles_raster(grain_props)
-%function_intragrain_boundary_angles_raster rasters across intragrain
+function grain_props = calc_intragrain_boundary_angles(grain_props)
+%calc_intragrain_boundary_angles rasters across intragrain
 %segmented image to calculate all pixel-pixel misorientations
-%   grain_props = function_intragrain_boundary_angles_raster(grain_props)
+%   grain_props = calc_intragrain_boundary_angles(grain_props)
 %   
 %   Inputs
 %       grain_props - grain properties

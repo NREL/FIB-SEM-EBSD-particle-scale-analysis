@@ -1,7 +1,7 @@
-function [grain_props, border_composite] = function_grain_borders(grain_props, ignore_CI)
-%function_grain_borders implementation of bwboudnaries to save boudnaries
+function [grain_props, border_composite] = grain_boundary_positions(grain_props, ignore_CI)
+%grain_boundary_positions implementation of bwboudnaries to save boudnaries
 %for every grain in image
-%   [grain_props, border_composite] = function_grain_borders(grain_props)
+%   [grain_props, border_composite] = grain_boundary_positions(grain_props)
 %   
 %   Inputs
 %       grain_props - matrix...

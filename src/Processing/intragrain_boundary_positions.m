@@ -1,7 +1,7 @@
-function grain_props = function_intragrain_borders(grain_props, ignore_CI)
-%function_intragrain_borders returns matrix of all boundaries within each
+function grain_props = intragrain_boundary_positions(grain_props, ignore_CI)
+%intragrain_boundary_positions returns matrix of all boundaries within each
 %grain
-%   grain_props = function_intragrain_borders(grain_props)
+%   grain_props = intragrain_boundary_positions(grain_props)
 %   
 %   Inputs
 %       grain_props - grain properties
@@ -29,11 +29,6 @@ BACKGROUND = 0;
     
     expected_labels = 1:max(labels);
     
-%     particle_idxs = 1:length(labels);    
-%     for n = 1:length(non_grain_idxs)
-%         particle_idxs(particle_idxs == non_grain_idxs(n)) = [];
-%     end
-    
     all_boundaries = {};
 
     border_composite = zeros(size(BW));
@@ -50,8 +45,6 @@ BACKGROUND = 0;
             all_boundaries{n} = NaN;
         end
     end
-%     all_boundaries(1) = []; % label 0, or index 1, is never a particle, and is not reported as one by regionprops
-    
     
     grain_props.intragrain_boundaries = all_boundaries;
 end

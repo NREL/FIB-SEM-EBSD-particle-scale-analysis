@@ -1,6 +1,6 @@
-function R = function_rotation_matrix(phi1, cap_phi, phi2)
-%function_rotation_matrix creates rotation matrix from Euler Bunge Data
-%   R = function_rotation_matrix(phi1, cap_phi, phi2) returns matrix for
+function R = calc_R(phi1, cap_phi, phi2)
+%calc_R creates rotation matrix from Euler Bunge Data
+%   R = calc_R(phi1, cap_phi, phi2) returns matrix for
 %       intrinstic rotation of column vectors representing direction in 3D
 %       space. Use like R*[x;y;z]
 %   

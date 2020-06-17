@@ -1,6 +1,6 @@
-function grain_props = function_grain_distances(grain_props)
-%function_grain_distances(grain_props)
-%   grain_props = function_grain_distances(grain_props) calculates distance
+function grain_props = calc_grain_distance_from_edge(grain_props)
+%calc_grain_distance_from_edge(grain_props)
+%   grain_props = calc_grain_distance_from_edge(grain_props) calculates distance
 %       from particle edge to each individual grain
 %   
 %   Inputs

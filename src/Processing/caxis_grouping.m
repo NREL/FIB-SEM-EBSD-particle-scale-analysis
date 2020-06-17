@@ -1,5 +1,5 @@
-function [grain_props, grp_time] = function_grouping(grain_props, theta_tol)
-%function_grouping groups vectors which are similar in angle (within 1.5
+function [grain_props, grp_time] = caxis_grouping(grain_props, theta_tol)
+%caxis_grouping groups vectors which are similar in angle (within 1.5
 % degrees in both theta/phi directions) and then creates a segmentatation
 % that groups the regions within each grain that are oriented differently
 %   
@@ -26,7 +26,7 @@ function [grain_props, grp_time] = function_grouping(grain_props, theta_tol)
         
     BW = grain_props.BW;
     th_phi_mat = grain_props.tp_mat;
-    th_phi_mat_negs = function_xyzmat2sphmat(-grain_props.xyz_pos);
+    th_phi_mat_negs = xyz2sph_mat(-grain_props.xyz_pos);
     
     % angles between z-vectors
     th_phi_mat_cleaned = th_phi_mat; % theta/phi map 
@@ -130,8 +130,8 @@ function [grain_props, grp_time] = function_grouping(grain_props, theta_tol)
         grp_time(grn) = toc; disp([num2str(grp_time(grn)), ' s'])        
     end
         
-%     xyz_cleaned = function_sphmat2xyzmat(th_phi_mat_cleaned);
-    grain_props.xyz_cleaned = function_sphmat2xyzmat(th_phi_mat_cleaned);
+%     xyz_cleaned = sph2xyz_mat(th_phi_mat_cleaned);
+    grain_props.xyz_cleaned = sph2xyz_mat(th_phi_mat_cleaned);
     grain_props.tp_mat_cleaned = th_phi_mat_cleaned;
     grain_props.BW_intragrain = BW_ig;  
 end

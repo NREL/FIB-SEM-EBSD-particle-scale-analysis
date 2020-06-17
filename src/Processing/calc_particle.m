@@ -1,5 +1,5 @@
-function grain_props = function_secondary_particle_data(grain_props, multiple_primary_particles) % shouldn't need CI map
-%function_secondary_particle_data calculates parameters of secondary
+function grain_props = calc_particle(grain_props, multiple_primary_particles) % shouldn't need CI map
+%calc_particle calculates parameters of secondary
 %particle (one large segmentation area)
 %   [x,y] =  function(a,b) does ....
 %   

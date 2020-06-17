@@ -1,7 +1,7 @@
-function grain_props = function_boundary_angles(grain_props)
-%function_boundary_angles calculates angles between grain boundaries by
+function grain_props = calc_grain_boundary_angles(grain_props)
+%calc_grain_boundary_angles calculates angles between grain boundaries by
 %travesing the grain boundaries
-%   grain_props = function_boundary_angles(grain_props) uses the
+%   grain_props = calc_grain_boundary_angles(grain_props) uses the
 %       segmentation pattern and labels to compare pixel-pixel at
 %       boundaries
 %   

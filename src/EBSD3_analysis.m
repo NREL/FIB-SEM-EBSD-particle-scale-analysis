@@ -21,7 +21,7 @@ seg_map_fn = 'e03_weka.tiff'; % This segmentation reslution determines um_per_pi
 ebsd_text_fn = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 
 % scaling
-scale = 1;               % length scale - smaller scales = faster processing
+scale = 1;             % length scale - smaller scales = faster processing
 um_per_pix = 1/(144-18); % pixel scaling, here for IPF map of 1031 x 1024
 
 % swapping and focus region
@@ -114,27 +114,27 @@ grain_props.euler = euler_data; % 3 layer data with phi1, cap_phi, phi2 (Bunge E
 
 % Z-direction calculation, normalization for picture, and theta-phi map
 [xyzz, xyz_pos] = caxis_vector(euler_data);
-th_phi_mat = function_xyzmat2sphmat(xyz_pos);
+th_phi_mat = xyz2sph_mat(xyz_pos);
 grain_props.tp_mat = th_phi_mat;
 grain_props.xyz_pos = xyz_pos;
 
 %% Property Calculations
-grain_props = function_secondary_particle_data(grain_props, mult_secondary_ptcs); % shouldn't need CI map
+grain_props = calc_particle(grain_props, mult_secondary_ptcs); % shouldn't need CI map
 
-[grain_props, border_composite] = function_grain_borders(grain_props); % uses CI
+[grain_props, border_composite] = grain_boundary_positions(grain_props); % uses CI
 
-grain_props = function_grain_properties(grain_props); % implementation of region props - uses CI
-grain_props = function_grain_distances(grain_props); % distances from centroids to some defined distance map (here to edges of particles)
+grain_props = calc_grain_morphology(grain_props); % implementation of region props - uses CI
+grain_props = calc_grain_distance_from_edge(grain_props); % distances from centroids to some defined distance map (here to edges of particles)
 
-[grain_props, gr_time] = function_grouping(grain_props, angle_threshold); % z-axis cleaning tolerance grouping and 4-connectivity cleaning
-grain_props = function_cleaning(grain_props, N_thresh_pix, fill_grain);
+[grain_props, gr_time] = caxis_grouping(grain_props, angle_threshold); % z-axis cleaning tolerance grouping and 4-connectivity cleaning
+grain_props = caxis_cleaning(grain_props, N_thresh_pix, fill_grain);
 
-grain_props = function_boundary_angles(grain_props); % border angles - fix position names, what about real(deg)??
+grain_props = calc_grain_boundary_angles(grain_props); % border angles - fix position names, what about real(deg)??
 
-grain_props = function_intragrain_borders(grain_props); % acquisition just like boundary function_grain_borders
-grain_props = function_intragrain_boundary_angles_raster(grain_props); % angles of intra-grains only
+grain_props = intragrain_boundary_positions(grain_props); % acquisition just like boundary grain_boundary_positions
+grain_props = calc_intragrain_boundary_angles(grain_props); % angles of intra-grains only
 
-grain_props = function_intragrain_properties(grain_props);
+grain_props = calc_intragrain_morphology(grain_props);
 
 %% Visualize Cleaning Result
 figure; imshow(mat2col(grain_props.xyz_cleaned));

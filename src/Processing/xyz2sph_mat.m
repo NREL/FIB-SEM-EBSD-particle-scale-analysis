@@ -1,6 +1,6 @@
-function tp_mat = function_xyzmat2sphmat(xyz_mat)
-%function_xyzmat2sphmat converts m*n*3 x,y,z matrix into 3D th,phi matrix
-%   tp_mat = function_xyzmat2sphmat(xyz_mat) input is a 3D matrix with the
+function tp_mat = xyz2sph_mat(xyz_mat)
+%xyz2sph_mat converts m*n*3 x,y,z matrix into 3D th,phi matrix
+%   tp_mat = xyz2sph_mat(xyz_mat) input is a 3D matrix with the
 %       3rd dimension 3-deep. xyz_mat(:,:,1) is the spatial positioning of
 %       the x values (azimuth) and xyz_mat(:,:,2) of the y, xyz_mat(:,:,3)
 %       of the z

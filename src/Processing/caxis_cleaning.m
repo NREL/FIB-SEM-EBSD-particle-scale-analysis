@@ -1,5 +1,5 @@
-function [grain_props, clean_time] = function_cleaning(grain_props, area_tol, fill_region)
-%function_cleaning iteratively cleans 'speckling' of the data. Intragrains
+function [grain_props, clean_time] = caxis_cleaning(grain_props, area_tol, fill_region)
+%caxis_cleaning iteratively cleans 'speckling' of the data. Intragrains
 % below a specific threshold in size (input as pixels^2, or the # of
 % pixels) are removed by comparing the neighbors and replacing with most
 % common orientation
@@ -151,7 +151,7 @@ else
 end
 
 % update grain_props
-grain_props.xyz_cleaned = function_sphmat2xyzmat(th_phi_mat_cleaned);
+grain_props.xyz_cleaned = sph2xyz_mat(th_phi_mat_cleaned);
 grain_props.tp_mat_cleaned = th_phi_mat_cleaned;
 grain_props.BW_intragrain = BW_ig;
 end

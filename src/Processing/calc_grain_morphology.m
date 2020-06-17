@@ -1,4 +1,4 @@
-function grain_props = function_grain_properties(grain_props)
+function grain_props = calc_grain_morphology(grain_props)
     % implement CI map
 BACKGROUND = 0;
 

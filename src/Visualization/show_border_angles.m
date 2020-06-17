@@ -6,7 +6,7 @@ function show_border_angles(grain_props, deg_mat)
 %   Inputs
 %       grain_props - grain_props matrix
 %       deg_mat - 5 column vector which has [xpos1, xpos2, ypos1, ypos2,
-%           deg]. created in function_intragrain_boundary_angles_raster
+%           deg]. created in calc_intragrain_boundary_angles
 % 
 %   Outputs
 %       PLOT

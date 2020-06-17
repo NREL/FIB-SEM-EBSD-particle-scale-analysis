@@ -1,6 +1,6 @@
-function xyz_mat = function_sphmat2xyzmat(sph_mat)
-%function_sphmat2xyzmat converts m*n*2 th, phi matrix into 3d xyz matrix
-%   xyz_mat = function_sphmat2xyzmat(sph_mat) input is a 3D matrix with the
+function xyz_mat = sph2xyz_mat(sph_mat)
+%sph2xyz_mat converts m*n*2 th, phi matrix into 3d xyz matrix
+%   xyz_mat = sph2xyz_mat(sph_mat) input is a 3D matrix with the
 %       3rd dimension 2-deep. sph_mat(:,:,1) is the spatial positioning of
 %       the theta values (azimuth) and sph_mat(:,:,2) is the spatial
 %       positioning of the phi values (elevation)

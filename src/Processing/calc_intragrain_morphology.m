@@ -1,7 +1,7 @@
-function grain_props = function_intragrain_properties(grain_props)
-%function_intragrain_properties uses region props to get information about
+function grain_props = calc_intragrain_morphology(grain_props)
+%calc_intragrain_morphology uses region props to get information about
 %each intragrain
-%   grain_props = function_intragrain_properties(grain_props)
+%   grain_props = calc_intragrain_morphology(grain_props)
 %   
 %   Inputs
 %       grain_props - grain properties

@@ -21,7 +21,7 @@ function [xyz_mat, xyz_pos] = caxis_vector(euler_data)
     
     for n = 1:size(euler_data,1)
         for m = 1:size(euler_data,2)
-            rot_mats{n} = function_rotation_matrix(euler_data(n,m,1), euler_data(n,m,2), euler_data(n,m,3));
+            rot_mats{n} = calc_R(euler_data(n,m,1), euler_data(n,m,2), euler_data(n,m,3));
             xyz = rot_mats{n}*[0;0;1];
             xyz_mat(n,m,:) = xyz;
         end
