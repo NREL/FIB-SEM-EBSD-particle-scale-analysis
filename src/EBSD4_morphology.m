@@ -8,7 +8,7 @@ addpath('GrainProps Outputs')
 addpath('Inputs')
 
 %% File Loading
-load('2020-05-22-18-39-12_test.mat'); close all;
+load('gp_ptc_w_grains_cleaned_individually.mat'); close all;
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
 
 %% Edge Map

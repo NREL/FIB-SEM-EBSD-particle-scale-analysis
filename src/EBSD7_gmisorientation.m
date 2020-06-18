@@ -12,11 +12,11 @@ addpath('Processing')
 
 %% Loading
 % grains only
-load('2020-05-20-16-08-33_e03_cln3_ci0_grains_only_ebsd_seg.mat'); close all;
+load('gp_grains_only.mat'); close all;
 gp_grains = grain_props;
 
 % FULL particle. cleaning applied
-load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); close all;
+load('gp_ptc_grains_identified_by_grouping.mat'); close all;
 gp_ptc = grain_props;
 
 ebsd_img = imread('DF-NMC-CF-01-e_03.tif');
@@ -120,7 +120,6 @@ saveas(ff1,  'Figures/8_histogram_boundaries', save_format)
 saveas(f13,  'Figures/8_fractions_individual', save_format)
 saveas(f14,  'Figures/8_fractions_total', save_format)
 
-close all;
 
 %% Plot Help Functions
 function igba_histos(M)

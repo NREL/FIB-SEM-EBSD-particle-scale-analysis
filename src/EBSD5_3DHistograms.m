@@ -13,8 +13,9 @@ load('bckgd_BW.mat'); gp_bckgrd = grain_props;
 close all;
 
 %% Loading - New Set of Data
-load('2020-05-20-16-45-47_e03_cln3_entire_ptc_ebsd_seg.mat'); new_all  = grain_props;
-load('2020-05-20-16-08-33_e03_cln3_ci0_grains_only_ebsd_seg.mat'); new_grains = grain_props;
+% load('gp_ptc_grains_identified_by_grouping.mat'); new_all  = grain_props;
+load('gp_ptc_w_grains_cleaned_individually.mat'); new_all  = grain_props;
+load('gp_grains_only.mat'); new_grains = grain_props;
 close all;
 
 %% Orientations by pixel - New Data

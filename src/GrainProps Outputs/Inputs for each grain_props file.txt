@@ -1,0 +1,41 @@
+--------------------------------------------------------------
+gp_ptc_w_grains_cleaned_individually
+
+seg_map_fn = 'e03_weka.tiff';
+ebsd_text_fn = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
+
+scale = 1;
+um_per_pix = 1/(144-18);
+focus = 'grains';
+need_swap_labels = false;
+
+boundary_lbls = [45];
+bckgrd_lbls = [1];
+remove_lbls = [3 22 14 25 9 12 617 678];
+A_thresh_um = 0.016;
+CI_thres = -0.01;
+mult_secondary_ptcs = false;
+
+angle_threshold = 1.8;  
+fill_grain = false;     
+N_thresh_um = 0.01;
+
+--------------------------------------------------------------
+gp_grains_only
+
+focus = 'grains';
+
+--------------------------------------------------------------
+gp_grain_orientation_most_frequent
+
+focus = '';
+fill_grain = true;
+
+--------------------------------------------------------------
+gp_ptc_grains_identified_by_grouping
+
+seg_map_fn = 'e03_entire_particle.tiff';
+need_swap_labels = false;
+
+
+

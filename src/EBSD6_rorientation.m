@@ -12,7 +12,7 @@ addpath('Processing')
 savefigs = true;
 
 %% Loading/Inputs
-load('2020-05-22-18-39-12_test.mat'); close all;
+load('gp_ptc_w_grains_cleaned_individually.mat'); close all;
 ptc_r105090 = [7.1, 9.3, 12.1]./2; % in microns, spread of particle radii
 
 %% Angle of Orientations Relative to Radial Direction - varied particle diameter

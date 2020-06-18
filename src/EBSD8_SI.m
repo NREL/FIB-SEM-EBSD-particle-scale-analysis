@@ -7,7 +7,7 @@ addpath('Visualization')
 addpath('3DHistogram')
 
 %% Loading
-load('2020-01-12-15-03-16_EBSD_03_mfv.mat');
+load('gp_grain_orientation_most_frequent.mat');
 gp_mfv = grain_props; close all;
 
 %% Grain-grain angles per boundary pixel for Averaged Grains Angles

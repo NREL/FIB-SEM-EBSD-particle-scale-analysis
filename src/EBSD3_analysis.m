@@ -16,8 +16,8 @@ save_mat = false;          % true: .mat of everything
 save_excel = false;        % true: excel form of grain_props
 
 %% Inputs
-% segmentation and EBSD data
-seg_map_fn = 'e03_weka.tiff'; % This segmentation reslution determines um_per_pix
+% segmentation and EBSD filenames
+seg_map_fn = 'e03_weka.tiff'; % Resolution here determines um_per_pix
 ebsd_text_fn = 'DF-NMC-CF-01-e_03_Cleaned_All data.txt';
 
 % scaling
@@ -106,6 +106,7 @@ end
 [~, ~, ~, img_quality2, CIs] = intpol_ebsd(ebsd_text, seg_map, 'mode', 'average');
 CI_map = (CIs > CI_thres);
 grain_props.CI = CI_map; % 1 on these maps means ok to use
+grain_props.iq = img_quality2;
 
 % Euler data (phi1, cap_phi, phi2)
 [phi1, cap_phi, phi2, image_quality] = intpol_ebsd(ebsd_text, seg_map, 'mode', 'random');
