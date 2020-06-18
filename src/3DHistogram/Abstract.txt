@@ -1,0 +1,3 @@
+Software Name: 3D Polar Histogram
+Technology Field: Other  -Visualization
+Abstract:  The 3D Polar Histogram is an extension of the Polar Histogram to 3D space. It is meant to visualize orientation distributions of vectors in 3D space. Vectors are binned by their direction. Bins are then extended out radially from the origin to any direction in 3D space with a radius proportional to the number of vectors in the bin. Effectively, larger protrusions in the plot indicate a preferential orientation of the vectors in that direction. Various plotting options are provided to control the number of bins, coloring, bin geometry, and filtering of results.
