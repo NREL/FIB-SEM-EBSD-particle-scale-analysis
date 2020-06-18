@@ -1,6 +1,6 @@
 # FIB-SEM-EBSD-particle-scale-analysis
 Collection of MATLAB files used to analyse FIB-SEM-EBSD data.
-Currently, only the 3D histogram, EBSD5_3DHistograms.m, and some data is uploaded. 
+Currently, only the 3D histogram and the SI PDE model are uploaded. 
 
 We will upload the remaining scripts, data, and functions after granted permission from NREL. Please contact us for more information or clarification.
 
